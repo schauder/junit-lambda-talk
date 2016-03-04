@@ -1,0 +1,79 @@
+TODOs:
+Namen und Links der Projektverantwortlichen in den verschiedenen Time Slices
+
+Welche Requirements had JUnit Lambda
+* Java 8
+
+https://mail.google.com/mail/u/0/?zx=oihbfzhvpzhc#inbox/15220b27b6a112eb
+
+https://dzone.com/articles/do-not-post-until-1130junit-lambda-the-prototype
+https://jaxenter.de/logbuch-junit-lambda-zwischen-kickoff-und-alpha-kommt-der-prototyp-31196
+http://blog.codefx.org/libraries/junit-lambda-prototype/
+
+- A short history of JUnit and JUnit-Lambda
+    * JUnit as an in-flight pair programming mini project: Kent Beck & Erich Gamma
+	* JUnit 3 (pre Java 5): 
+		Test-Klassen werden über Vererbung identifiziert
+		Test Methoden werden über Namenskonventionen identifiziert
+	* JUnit 4 (Java 5)
+	    Annotationen
+		Rules
+		Theories
+		Parameterized Test
+		Spring Test Runner
+	* JUnit Lambda (Java 8 Kind of)
+	    Diskussionen (Mailing liste, XP-Days Germany, Wiki)
+		Crowdfunding
+		Kick off Meeting in Karlsruhe
+		Prototype
+		Eigentliche Entwicklung
+		Now: current status: prinzipiell verwendbar um es sich anzuschauen und zu lernen, aber noch volatil. Wir sind noch nicht einmal bei einem Release Candidate angekommen.
+		Also genau richtig für einen solchen Vortrag
+
+Warum passiert so viel in Deutschland? Wesentliche Teile des Teams kommen aus Deutschland. Insbesondere der Keeper of the Green Bar Marc Philipp
+		
+- Warum ein neuse JUnit?
+    * Viele (third Party) Features basieren auf Runnern, es kann davon pro Test aber immer nur einen geben. Ich kann also keinen Parametrisierten Spring Runner schreiben.
+	* Da ein Test eine Methodendefinition ist, kann ich darüber nicht abstrahieren. Ich kann zur Laufzeit keine Tests/Methoden hinzufügen. Wenn ein Test eine Closure ist, die registriert wird, kann ich dass einfach in eine Schleife packen.
+	* Die public API die Toolherstellern bisher zur Verfügung gestellt wurde ist unzureichend (s.u.)
+    * Kaum Änderungen möglich. Beispiel: Die Umbenennung eines private fields musst rückgängig gemacht werden, da IntelliJ darauf per Reflection darauf zugegriffen hat.
+	
+- How to write a simple Test using JUnit-Lambda
+
+- Run that test using
+  - Command Line
+  - IntelliJ
+  - Eclipse
+  - Maven
+  - Gradle
+  - compatibility: Running JUnit4 Tests in Lambda and vice versa
+
+- Structure of JUnit
+  - Open Testing Alliance
+
+- use a current JDK for building junit lambda
+  
+- What is new
+  CustomAnotations
+  Verweis auf junit-lambda:sample-project
+  Nested Tests
+  Tags
+  Conditions
+  API Annotations
+  TestReporter
+  Extensions can be registered either declaratively via @ExtendWith or programmatically via an ExtensionRegistrar.
+
+
+
+  x ParameterResolver: provide Parameters for tests at runtime, also works for Before/After ...
+  x TestInfo Parameter ... bekommt man da meta informationen über den Test???? Genau
+  x @DisplayName
+  x asserting Exceptions // no more expected
+
+- what is planned
+  Ordering of Tests will most probably become a core feature (it is still discouraged to use)
+- extending JUnit: How to write your own TestEngine
+
+
+Fragen: 
+In der Timing Extension: warum hat der TestContext eine Methode getTestMethod, es ist doch bei anderen Engines überhaupt nicht garantiert, dass es so etwas gibt????

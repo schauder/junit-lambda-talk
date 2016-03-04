@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>JUnit 5 - The Next Generation</title>
+
+    <meta name="description"
+          content="Vortrag über den Entwicklungsstand von JUnit 5 aka JUnit Lambda">
+    <meta name="author" content="Jens Schauder">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/jswhite.css" id="theme">
+
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/qtcreator_light.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href =
+                window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css'
+                        : 'css/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+<div class="reveal">
+
+    <!-- Any section element inside of this container is displayed as a slide -->
+    <div class="slides">
+        <section>
+            <section>
+                <h1>JUnit <strike>Lambda</strike> 5</h1>
+                <h3>The Next Generation</h3>
+                <p class="note">
+                    Jens Schauder<br>
+                    <a href="http://blog.schauderhaft.de">http://blog.schauderhaft.de</a><br>
+                    <a href="https://twitter.com/jensschauder">@jensschauder</a><br>
+                    <br>
+                    <a href="http://www.t-systems-onsite.de/">T-Systems on site services
+                        GmbH</a>
+
+                </p>
+            </section>
+            <section data-background="">
+                <h2>Wer? ... ich?</h2>
+                <p>Entwickler, Freunde dürfen mich Architekt nennen</p>
+                <p>JUnit Nutzer seit 2001</p>
+                <p>JUnit 5 Supporter</p>
+                <p class="note">Entwickler von <a
+                        href="http://schauder.github.io/degraph/">Degraph</a></p>
+
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h2>Warum eine neue Version?</h2>
+            </section>
+            <section>
+                <h2>Schwer zu warten / weiter zu entwickeln</h2>
+            </section>
+            <section>
+                <h2>Die verdammten Runner</h2>
+            </section>
+            <section>
+                <h2>Neue syntaktische Möglichkeiten mit Java 8</h2>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h2>Was bisher geschah</h2>
+            </section>
+            <section>
+                <h2>2012</h2>
+                <img class="plain" src="assets/mail.png"/>
+            </section>
+            <section>
+                <h2>2014</h2>
+                <p>Diskussion auf den XP-Days mit den JUnit Entwicklern</p>
+            </section>
+            <section>
+                <h2>Mitte 2015</h2>
+                <p>Indigogo Kampagne</p>
+                <p>Ziel: 25 000Euro</p>
+                <p>Ergebnis: 53 937Euro von 474 Unterstützern</p>
+            </section>
+            <section>
+                <h2>Ende 2015</h2>
+                <p>Prototype</p>
+            </section>
+            <section>
+                <h2>2016</h2>
+                <p>JUnit 5.0 Alpha releast</p>
+                <p>zusammen mit org.opentest4j </p>
+            </section>
+        </section>
+
+
+        <section>
+            <section>
+                <h2>JUnit 5 Infrastruktur</h2>
+            </section>
+            <section>
+                <h2>Modular</h2>
+                <pre><code>junit-commons
+junit-console
+junit-engine-api
+junit-gradle
+junit-launcher
+junit4-engine
+junit4-runner
+junit5-api
+junit5-engine
+surefire-junit5</code></pre>
+            </section>
+            <section>
+                <h2>Keine Package Zyklen</h2>
+                <p class="note"><a href="https://github.com/junit-team/junit5/pull/71">shameless
+                    plug</a>
+                </p>
+            </section>
+            <section>
+                <h2>Running Tests à la JUnit 5</h2>
+                <p>start the launcher</p>
+                <p>launcher finds available Engines</p>
+                <p>launcher asks each Engine to discover Tests</p>
+                <p>launcher asks each Engine execute its Tests</p>
+                <br>
+                <p>Es gibt eine JUnit 4 Engine die JUnit4 Tests ausführen kann</p>
+                <p>Keine IDE Integration</p>
+            </section>
+            <section>
+                <h2>Running Tests à la JUnit 4</h2>
+                <p>Anotieren mit <code>@RunWith(JUnit5.class)</code>
+                <p>JUnit5 Runner startet den Launcher wie oben</p>
+            </section>
+            <section>
+                <h2>Running Tests like a Pro</h2>
+                <p>Gradle Plugin</p>
+                <p>Maven Plugin</p>
+                <p>ConsoleRunner</p>
+            </section>
+            <section>
+                <h2>Packages</h2>
+                <p><code>org.junit.gen5.*</code></p>
+                <p>Viele Namen haben sich geändert</p>
+                <p class="note">Das soll die Verwirrung minimieren. Ob's klappt?</p>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>Tests FTW!</h2>
+            </section>
+            <section>
+                <h2>JUnit 5 beinhaltet JUnit 4</h2>
+                <pre><code>public class $01JUnit4Test {
+    @Test
+    public void testShouldFail(){
+        Assert.fail("JUnit4 test executed,
+                    which is great, so this fails
+                    ... whatever");
+    }
+}</code></pre>
+                <p class="note">Die Klassennamen haben nichts zu bedeuten</p>
+            </section>
+            <section>
+                <h2>JUnit 5!</h2>
+                <pre><code>import org.junit.gen5.api.Assertions;
+import org.junit.gen5.api.Test;
+
+public class $02JUnit5Test {
+    @Test
+    public void testShouldFail() {
+        Assertions.fail("JUnit5 test executed,
+                    which is great, so this fails
+                    ... whatever");
+    }
+}</code></pre>
+            </section>
+            <section>
+                <h2>JUnit 5 via JUnit4</h2>
+                <pre><code>import org.junit.gen5.api.Assertions;
+import org.junit.gen5.api.Test;
+import org.junit.gen5.junit4.runner.JUnit5;
+import org.junit.runner.RunWith;
+
+@RunWith(JUnit5.class)
+public class $03JUnit5AsJUnit4Test {
+    @Test
+    public void testShouldFail(){
+        Assertions.fail("This is a JUnit 5 Test which uses a Runner,
+                    so it can run as a JUnit 5 or as a JUnit 4 Test,
+                    which is great, so this fails
+                    ... whatever");
+    }
+}</code></pre>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>JUnit5 for real</h2>
+            </section>
+            <section>
+                <h2>Wrapper für die nächsten Folien</h2>
+                <pre><code>import org.junit.gen5.api.Assertions;
+import org.junit.gen5.api.Assumptions;
+import org.junit.gen5.api.Disabled;
+import org.junit.gen5.api.DisplayName;
+import org.junit.gen5.api.Test;
+
+class $04ProperJUnit5Test {
+
+//  STUFF GOES HERE
+
+}</code></pre>
+                <p class="note">Package Scope reicht</p>
+            </section>
+            <section>
+                <h2>Trivialer Test</h2>
+                <pre><code>@Test
+void shouldFail() { // again only package scope -> reduced noise
+    // Assertions replaces Assert for simple stuff
+    Assertions.fail("JUnit5 test executed, which is great,
+                    so this fails ... whatever");
+    // you probably want to use AssertJ, Hamcrest or similar anyway
+}</code></pre>
+            </section>
+            <section>
+                <h2>Tests Ingorieren</h2>
+                <pre><code>@Test
+@Disabled // replaces @Ignored
+void ignored() {
+    // does not get executed
+}
+
+@Test
+void abortTests() {
+    // abort the test -> not failed, but execution stops anyway.
+    Assumptions.assumeTrue(false);
+}</code></pre>
+            </section>
+            <section>
+                <h2>Namen</h2>
+                <pre><code>@Test
+@DisplayName("Realy Awesome Name \uD83D\uDC4C")
+void stupidName() {}</code></pre>
+            </section>
+            <section>
+                <h2>Exceptions</h2>
+                <pre><code>@Test
+void testExceptions() {
+    final String argument = "forty-two";
+    final IllegalArgumentException exception = Assertions.expectThrows(
+                    IllegalArgumentException.class, () -> {
+        parseRomanNumeral(argument);
+    });
+    Assertions.assertTrue(exception.getMessage().contains(argument));
+}
+
+int parseRomanNumeral(String numberString) {
+    if (numberString.equals("XXIII")) return 23;
+
+    throw new IllegalArgumentException("Can't parse " + numberString);
+}</code></pre>
+            </section>
+        </section>
+        <section>
+            <section>
+                <h2>Extensions</h2>
+            </section>
+            <section>
+                <h2>ParameterResolver 1/2</h2>
+                <pre><code>@ExtendWith({RandomParameterResolver.class})
+public class $05MethodParameterResolver {
+    @Test
+    void testMethodParameterResolver(
+    String arg,
+    TestInfo testInfo // is provided by the TestInfoResolver,
+                    // which is always present
+    ) {
+        assertThat(testInfo.getDisplayName() , endsWith("Resolver"));
+        assertThat(arg, startsWith("Jens"));
+    }
+}</code></pre>
+            </section>
+            <section>
+                <h2>ParameterResolver 2/2</h2>
+                <pre><code>public class RandomParameterResolver implements MethodParameterResolver{
+    @Override
+    public boolean supports(
+        Parameter parameter,
+        MethodInvocationContext methodInvocationContext,
+        ExtensionContext extensionContext
+    ) throws ParameterResolutionException {
+        return parameter.getType() == String.class;
+    }
+
+    @Override
+    public Object resolve(
+        Parameter parameter,
+        MethodInvocationContext methodInvocationContext,
+        ExtensionContext extensionContext
+    ) throws ParameterResolutionException {
+        return "Jens" + UUID.randomUUID();
+    }
+}</code></pre>
+            </section>
+
+           <section>
+               <h2>Extension Points</h2>
+               <p>
+               <code>Condition</code>: disablen von Tests<br>
+               <code>InstancePostProcessor</code>: Testinstanzen manipulieren<br>
+               <code>MethodParameterResolver</code>: Parameter injizieren<br>
+               <code>BeforeEachCallback</code><br>
+               <code>AfterEachCallback</code><br>
+               <code>BeforeAllCallback</code><br>
+               <code>AfterAllCallback</code><br>
+               </p>
+           </section>
+           <section>
+               <h2>Und, was haltet ihr davon?</h2>
+           </section>
+           <section>
+               <h2>Ich bin skeptisch</h2>
+               <p>Keine Statement Abstraktion, wie bei Rules</p>
+               <p>Abhängig von der Engine</p>
+               <p><a href="https://github.com/junit-team/junit5/issues/157">Ich habe einen Issue angelegt</a></p>
+               <p><a href="https://github.com/junit-team/junit5/pull/134">Und es gibt einen alternativen Vorschlag</a></p>
+           </section>
+       </section>
+
+        <section>
+            <section>
+                <h2>Diverses</h2>
+            </section>
+            <section>
+                <h2>Nested Tests</h2>
+                <pre><code>class ListTest {
+   @Nested
+   class WhenEmpty {
+       @Test
+       void canAdd() {
+           // ...
+       }
+   }
+}</code></pre>
+            </section>
+            <section>
+                <h2>Tagging</h2>
+                <pre><code>@Tag("super")
+@Tags({@Tag("awesome"), @Tag("cool")})
+class $08TaggedTest {
+
+    @Test
+    void impressiveTest() {
+        //
+    }
+
+    @Test
+    @Tag("nice")
+    void evenBetterTest() {
+        //
+    }
+}</code></pre>
+            </section>
+            <section>
+                <h2>Meta Annotationen</h2>
+                <pre><code>class $08TaggedTest {
+     @FastTest
+     void metaAnnotatedTest() {
+         //
+     }
+}
+
+@Target({ ElementType.TYPE, ElementType.METHOD })
+@Retention(RetentionPolicy.RUNTIME)
+@Tag("fast")
+@Test
+public @interface FastTest {}</code></pre>
+            </section>
+        </section>
+
+
+        <section>
+            <section>
+                <h2>Ausblick</h2>
+            </section>
+            <section>
+                <h2>Final Release für den Herbst geplant</h2>
+            </section>
+            <section>
+                <h2>Statementabstraktion in Diskussion</h2>
+                <p>Das gleiche gilt für fast alles andere</p>
+                <p>d.h. man kann jetzt sehr direkt Einfluss nehmen</p>
+            </section>
+            <section>
+                <h2>Closure basierte Engine wird es zunächst nicht geben</h2>
+                <pre><code>class SomeSpec extends ClosureSpec{{
+test("ein Test", () -> {
+    // Testcontent should go here
+});
+                }}</code></pre>
+            </section>
+            <section>
+                <h2>Schade!</h2>
+                <p>Hätte ich gerne</p>
+                <p>Würde ein Licht auf die Qualität von Engine/Launcher Konzept werfen</p>
+                <blockquote>Evtl. kommt aus der Community (Wink mit dem Zaunpfahl) ein guter Vorschlag, der als Ausgangsbasis dienen kann… ;-)</blockquote>
+                <p class="note">Marc Philipp</p>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h2>Was solltet ihr jetzt tun?</h2>
+            </section>
+            <section>
+                <h2>Marc Philipp (Keeper of the Green Bar)</h2>
+                <blockquote>Ich fürchte, die meisten werden auf die finale Version warten und dann
+                    meckern…
+                </blockquote>
+            </section>
+            <section>
+                <h2>Lasst uns ihn Lügen strafen</h2>
+                <p>Führt eure existierenden Tests mit JUnit 5 aus</p>
+                <p>Schreibt neue Tests mit JUnit 5</p>
+                <p>Schreibt eure Rules/Runner mit JUnit 5 Mitteln</p>
+                <br>
+                <p>Meckert freundlich, frühzeitig und konstruktiv auf <a
+                        href="https://github.com/junit-team/junit5/issues">Github</a></p>
+            </section>
+        </section>
+    </div>
+
+</div>
+
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.js"></script>
+
+<script>
+
+    // Full list of configuration options available at:
+    // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+                          controls: true,
+                          progress: true,
+                          history: true,
+                          center: false,
+
+                          transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+                          // Optional reveal.js plugins
+                          dependencies: [
+                              {
+                                  src: 'lib/js/classList.js', condition: function () {
+                                  return !document.body.classList;
+                              }
+                              },
+                              {
+                                  src: 'plugin/markdown/marked.js', condition: function () {
+                                  return !!document.querySelector('[data-markdown]');
+                              }
+                              },
+                              {
+                                  src: 'plugin/markdown/markdown.js', condition: function () {
+                                  return !!document.querySelector('[data-markdown]');
+                              }
+                              },
+                              {
+                                  src: 'plugin/highlight/highlight.js',
+                                  async: true,
+                                  callback: function () {
+                                      hljs.initHighlightingOnLoad();
+                                  }
+                              },
+                              {src: 'plugin/zoom-js/zoom.js', async: true},
+                              {src: 'plugin/notes/notes.js', async: true}
+                          ]
+                      });
+
+</script>
+
+</body>
+</html>
