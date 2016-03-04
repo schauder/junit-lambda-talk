@@ -7,6 +7,7 @@ buildscript {
     dependencies {
         classpath 'org.junit:junit-gradle:5.0.0-SNAPSHOT'
         classpath 'org.junit:junit-console:5.0.0-SNAPSHOT'
+        classpath 'org.ajoberstar:gradle-git:1.4.2'
     }
 
 
@@ -48,3 +49,13 @@ task wrapper(type: Wrapper) {
     distributionUrl = 'https://services.gradle.org/distributions/gradle-2.10-all.zip'
 }
 
+// publishing slides to gh-pages
+
+apply plugin: 'org.ajoberstar.github-pages'
+
+githubPages {
+    repoUri = 'https://github.com/schauder/junit-lambda-talk.git'
+    pages {
+        from 'src/main/presentation'
+    }
+}
