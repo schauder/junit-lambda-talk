@@ -67,6 +67,22 @@ body {
 .reveal h1 {
   text-shadow: none; }
 
+.reveal footer {
+  position: absolute;
+  bottom: -1em;
+  font-size: 50%;
+  width: 100%;
+  color: #93a1a1;
+}
+
+.reveal footer .left{
+  float: left;
+}
+
+.reveal footer .right{
+  float: right;
+}
+
 /*********************************************
  * OTHER
  *********************************************/
