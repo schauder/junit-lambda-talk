@@ -121,7 +121,7 @@
             </section>
             <section>
                 <h2>Modular</h2>
-                <pre><code>junit-commons
+                <pre><code class="nohighlight">junit-commons
 junit-console
 junit-engine-api
 junit-gradle
@@ -172,7 +172,7 @@ surefire-junit5</code></pre>
             </section>
             <section>
                 <h2>JUnit 5 beinhaltet JUnit 4</h2>
-                <pre><code>public class $01JUnit4Test {
+                <pre><code class="java">public class $01JUnit4Test {
     @Test
     public void testShouldFail(){
         Assert.fail("JUnit4 test executed,
@@ -184,7 +184,7 @@ surefire-junit5</code></pre>
             </section>
             <section>
                 <h2>JUnit 5!</h2>
-                <pre><code>import org.junit.gen5.api.Assertions;
+                <pre><code class="java">import org.junit.gen5.api.Assertions;
 import org.junit.gen5.api.Test;
 
 public class $02JUnit5Test {
@@ -198,7 +198,7 @@ public class $02JUnit5Test {
             </section>
             <section>
                 <h2>JUnit 5 via JUnit4</h2>
-                <pre><code>import org.junit.gen5.api.Assertions;
+                <pre><code class="java">import org.junit.gen5.api.Assertions;
 import org.junit.gen5.api.Test;
 import org.junit.gen5.junit4.runner.JUnit5;
 import org.junit.runner.RunWith;
@@ -221,7 +221,7 @@ public class $03JUnit5AsJUnit4Test {
             </section>
             <section>
                 <h2>Wrapper für die nächsten Folien</h2>
-                <pre><code>import org.junit.gen5.api.Assertions;
+                <pre><code class="java">import org.junit.gen5.api.Assertions;
 import org.junit.gen5.api.Assumptions;
 import org.junit.gen5.api.Disabled;
 import org.junit.gen5.api.DisplayName;
@@ -236,7 +236,7 @@ class $04ProperJUnit5Test {
             </section>
             <section>
                 <h2>Trivialer Test</h2>
-                <pre><code>@Test
+                <pre><code class="java">@Test
 void shouldFail() { // again only package scope -> reduced noise
     // Assertions replaces Assert for simple stuff
     Assertions.fail("JUnit5 test executed, which is great,
@@ -246,7 +246,7 @@ void shouldFail() { // again only package scope -> reduced noise
             </section>
             <section>
                 <h2>Tests Ingorieren</h2>
-                <pre><code>@Test
+                <pre><code class="java">@Test
 @Disabled // replaces @Ignored
 void ignored() {
     // does not get executed
@@ -260,13 +260,13 @@ void abortTests() {
             </section>
             <section>
                 <h2>Namen</h2>
-                <pre><code>@Test
+                <pre><code class="java">@Test
 @DisplayName("Realy Awesome Name \uD83D\uDC4C")
 void stupidName() {}</code></pre>
             </section>
             <section>
                 <h2>Exceptions</h2>
-                <pre><code>@Test
+                <pre><code class="java">@Test
 void testExceptions() {
     final String argument = "forty-two";
     final IllegalArgumentException exception = Assertions.expectThrows(
@@ -289,7 +289,7 @@ int parseRomanNumeral(String numberString) {
             </section>
             <section>
                 <h2>ParameterResolver 1/2</h2>
-                <pre><code>@ExtendWith({RandomParameterResolver.class})
+                <pre><code class="java">@ExtendWith({RandomParameterResolver.class})
 public class $05MethodParameterResolver {
     @Test
     void testMethodParameterResolver(
@@ -304,7 +304,7 @@ public class $05MethodParameterResolver {
             </section>
             <section>
                 <h2>ParameterResolver 2/2</h2>
-                <pre><code>public class RandomParameterResolver implements MethodParameterResolver{
+                <pre><code class="java">public class RandomParameterResolver implements MethodParameterResolver{
     @Override
     public boolean supports(
         Parameter parameter,
@@ -331,18 +331,76 @@ public class $05MethodParameterResolver {
                <code>Condition</code>: disablen von Tests<br>
                <code>InstancePostProcessor</code>: Testinstanzen manipulieren<br>
                <code>MethodParameterResolver</code>: Parameter injizieren<br>
-               <code>BeforeEachCallback</code><br>
-               <code>AfterEachCallback</code><br>
-               <code>BeforeAllCallback</code><br>
-               <code>AfterAllCallback</code><br>
+               <code>BeforeEachExtensionPoint</code><br>
+               <code>AfterEachExtensionPoint</code><br>
+               <code>BeforeAllExtensionPoint</code><br>
+               <code>AfterAllExtensionPoint</code><br>
                </p>
            </section>
+            <section>
+                <h2>Before und After bündeln: Test</h2>
+               <pre><code class="java">@ExtendWith({WithDatasource.class})
+    public class BeforeAfterExtensionTest implements NeedDatasource{
+
+    @Test
+    public void testSomething(){
+        System.out.println("in test one");
+    }
+
+    @Test
+    public void testSomethingElse(){
+        System.out.println("in test two");
+    }
+
+    @Override
+    public void set(MyDatasource ds) {
+        System.out.println("set called with " + ds);
+    }
+}</code></pre>
+            </section>
+            <section>
+                <h2>Before und After bündeln: Extension</h2>
+               <pre><code class="java">public class WithDatasource implements
+    BeforeEachExtensionPoint, AfterEachExtensionPoint {
+
+    @Override
+    public void beforeEach(TestExtensionContext testExtensionContext) {
+        System.out.println("before");
+        ((NeedDatasource)testExtensionContext.getTestInstance())
+                   .set(new MyDatasource());
+    }
+
+    @Override
+    public void afterEach(TestExtensionContext testExtensionContext) {
+        System.out.println("after");
+        ((NeedDatasource)testExtensionContext.getTestInstance())
+                   .set(null);
+    }
+}</code></pre>
+            </section>
+            <section>
+                <h2>Before und After bündeln: Interface</h2>
+               <pre><code class="java">public interface NeedDatasource {
+    void set(MyDatasource ds);
+}</code></pre>
+            </section>
+            <section>
+                <h2>Before und After bündeln: Output</h2>
+               <pre><code class="nohighlight">before
+set called with de.schauderhaft.junit.lambda.example.MyDatasource@4501b7af
+in test two
+after
+set called with null
+before
+set called with de.schauderhaft.junit.lambda.example.MyDatasource@6093dd95
+in test one
+after
+set called with null</code></pre>
+            </section>
            <section>
-               <h2>Und, was haltet ihr davon?</h2>
-           </section>
-           <section>
-               <h2>Ich bin skeptisch</h2>
+               <h2>Limitierungen</h2>
                <p>Keine Statement Abstraktion, wie bei Rules</p>
+               <p>=> Keine Threads, Mehrfachausführung ...</p>
                <p>Abhängig von der Engine</p>
                <p><a href="https://github.com/junit-team/junit5/issues/157">Ich habe einen Issue angelegt</a></p>
                <p><a href="https://github.com/junit-team/junit5/pull/134">Und es gibt einen alternativen Vorschlag</a></p>
@@ -351,11 +409,11 @@ public class $05MethodParameterResolver {
 
         <section>
             <section>
-                <h2>Rettung Naht!</h2>
+                <h2>Dynamische Tests</h2>
             </section>
             <section>
                 <h2>Branch <code>issue58-dynamic-tests</code></h2>
-                <pre><code>@Dynamic
+                <pre><code class="java">@Dynamic
 List&lt;DynamicTest> dynamicTestsFromList() {
     List&lt;DynamicTest> tests = new ArrayList<>();
 
@@ -374,7 +432,7 @@ List&lt;DynamicTest> dynamicTestsFromList() {
             </section>
             <section>
                 <h2>Eine kleine Klasse</h2>
-                <pre><code>public abstract class ClosureTestBase {
+                <pre><code class="java">public abstract class ClosureTestBase {
     private List&lt;DynamicTest> tests = new ArrayList<>();
 
     protected void test(String name, Executable test){
@@ -390,7 +448,7 @@ List&lt;DynamicTest> dynamicTestsFromList() {
             </section>
             <section>
                 <h2>Tada!</h2>
-                <pre><code>class MyClosureTest extends ClosureTestBase{{
+                <pre><code class="java">class MyClosureTest extends ClosureTestBase{{
     test("ein Test ein Test", () -> {Assertions.assertTrue(true);});
 }}</code></pre>
             </section>
@@ -408,7 +466,7 @@ List&lt;DynamicTest> dynamicTestsFromList() {
             </section>
             <section>
                 <h2>Nested Tests</h2>
-                <pre><code>class ListTest {
+                <pre><code class="java">class ListTest {
    @Nested
    class WhenEmpty {
        @Test
@@ -420,7 +478,7 @@ List&lt;DynamicTest> dynamicTestsFromList() {
             </section>
             <section>
                 <h2>Tagging</h2>
-                <pre><code>@Tag("super")
+                <pre><code class="java">@Tag("super")
 @Tags({@Tag("awesome"), @Tag("cool")})
 class $08TaggedTest {
 
@@ -438,7 +496,7 @@ class $08TaggedTest {
             </section>
             <section>
                 <h2>Meta Annotationen</h2>
-                <pre><code>class $08TaggedTest {
+                <pre><code class="java">class $08TaggedTest {
      @FastTest
      void metaAnnotatedTest() {
          //
@@ -450,6 +508,19 @@ class $08TaggedTest {
 @Tag("fast")
 @Test
 public @interface FastTest {}</code></pre>
+            </section>
+            <section>
+                <h2>API Annotations</h2>
+
+                <pre><code class="java">@API(Experimental)</code></pre>
+
+                <p>Mit den Ausprägungen</p>
+
+<pre><code class="nohighlight">Internal,
+Deprecated,
+Experimental,
+Maintained,
+Stable</code></pre>
             </section>
         </section>
 
@@ -469,7 +540,7 @@ public @interface FastTest {}</code></pre>
             <section>
                 <strike>
                 <h2>Closure basierte Engine wird es zunächst nicht geben</h2>
-                <pre><code>class SomeSpec extends ClosureSpec{{
+                <pre><code class="java">class SomeSpec extends ClosureSpec{{
     test("ein Test", () -> {
         // Testcontent should go here
     });
