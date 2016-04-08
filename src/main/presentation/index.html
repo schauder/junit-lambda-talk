@@ -453,10 +453,54 @@ List&lt;DynamicTest> dynamicTestsFromList() {
 }}</code></pre>
             </section>
             <section>
-                <h2>Warum ist das wichtig?</h2>
-                <p>Parametrisierte Tests</p>
-                <p>Before / After / Rules gekapselt in eigener <code>test</code> Methode</p>
-                <p>Verstehbar ohne JUnit-Wissen</p>
+                <h2>Parametrisierte Tests</h2>
+                <pre><code class="java">for (Fixture f : asList(
+    f(1, 2, 3), // creates a Fixture instance
+    f(20, 30, 50),
+    f(-20, 12, -8))
+    )
+        test(format("%d plus %d is %d", f.summand1, f.summand2, f.sum),
+                () -> assertEquals(f.sum, f.summand1 + f.summand2)
+        );</code></pre>
+            </section>
+            <section>
+                <h2>Test Parameter injection</h2>
+                <pre><code class="java">testWithDependencies(
+    "those properties must contain some magic",
+    (Properties p) -> {
+        System.out.println("in test");
+        assertTrue(p.containsKey("magic.number"));
+    }
+);
+
+private void testWithDependencies(
+    String name,
+    Consumer&lt;Properties> testNeedingProperties
+) {
+    Properties p = new Properties();
+    p.put("magic.number", 42);
+    super.test(name, () -> testNeedingProperties.accept(p));
+}</code></pre>
+        </section>
+            <section>
+                <h2>Setup Teardown</h2>
+                <pre><code class="java">testWithSetupTearDown(
+    "test with setup/teardown",
+    () -> assertTrue(true)
+);
+
+private void testWithSetupTearDown(String name, Executable test) {
+    test(
+        name,
+        () -> {
+            try {
+                System.out.println("setup");
+                test.execute();
+            } finally {
+                System.out.println("teardown");
+            }
+        });
+}</code></pre>
             </section>
         </section>
 
