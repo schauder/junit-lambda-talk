@@ -59,3 +59,51 @@ Ende 2015: Prototyp
 Feb 2016: JUnit 5.0 Alpha
 
 Juli 2016: JUnit Jupiter M1 & M2
+
+== Internals
+
+=== Module
+
+[plantuml]
+....
+package Jupiter {
+[jupiter-api] as jupiterapi
+[jupiter-engine] as jupiterengine
+}
+
+package Platform {
+[platform-commons] as commons
+[platform-console] as console
+[platform-engine] as engine
+[platform-gradle-plugin] as gradle
+[platform-launcher] as launcher
+[platform-runner] as runner
+[platform-surefire-provider] as surefire
+}
+
+package Vintage {
+[vintage-engine] as vintage
+}
+
+package Opentest4j {
+[opentest4j]
+}
+
+jupiterapi ..> opentest4j
+jupiterapi ..> commons
+
+jupiterengine ..> engine
+jupiterengine ..> jupiterapi
+
+console ..> launcher
+
+gradle ..> console
+
+launcher ..> engine
+
+runner ..> launcher
+
+surefire ..> launcher
+
+vintage ..> engine
+....
