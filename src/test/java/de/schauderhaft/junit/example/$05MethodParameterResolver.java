@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
 import org.junit.jupiter.api.extension.ExtendWith;
 
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.endsWith;
 import static org.hamcrest.CoreMatchers.startsWith;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -17,7 +18,7 @@ public class $05MethodParameterResolver {
             String arg,
             TestInfo testInfo // is provided by the TestInfoResolver, which is always present
     ) {
-        assertThat(testInfo.getDisplayName() , endsWith("Resolver"));
+        assertThat(testInfo.getDisplayName() , containsString("Resolver"));
 
         assertThat(arg, startsWith("Jens"));
     }

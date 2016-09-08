@@ -11,13 +11,13 @@ class $04ProperJUnit5Test {
     @Test
     void shouldFail() { // again only package scope -> reduced noise
         // Assertions replaces Assert for simple stuff
-        Assertions.fail("JUnit5 test executed, which is great, so this fails ... whatever");
+        Assertions.assertEquals(5, quersumme(23), "JUnit5 test executed, which is great, so this fails ... whatever");
 
         // you probably want to use AssertJ, Hamcrest or similar anyway
     }
-
     @Test
-    @Disabled // replaces @Ignored
+    @Disabled
+        // replaces @Ignored
     void ignored() {
     }
 
@@ -50,5 +50,11 @@ class $04ProperJUnit5Test {
         }
         throw new IllegalArgumentException("Can't parse " + numberString);
     }
+
+
+    private int quersumme(int number) {
+        return number < 10 ? number : number % 10 + quersumme(number / 10);
+    }
+
 
 }
