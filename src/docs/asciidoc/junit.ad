@@ -1,5 +1,17 @@
 = JUnit 5
-    The Next Generation
+
+The Next Generation
+
+****
+Jens Schauder
+
+http://blog.schauderhaft.de
+
+https://twitter.com/jensschauder[@jensschauder]
+
+
+http://www.t-systems-onsite.de/[T-Systems on site services GmbH]
+****
 
 == Who? ... Me?
 
@@ -9,6 +21,41 @@ JUnit Nutzer seit 2001
 
 JUnit 5 Supporter
 
+****
 Entwickler von http://schauder.github.io/degraph/[Degraph]
+****
 
-Mitarbeiter der T-Systems on site services GmbH
+
+== Das haben wir früher auch nicht gebraucht!
+
+=== Schwer Wartbar
+
+Internes Feld umbenennen?
+
+NOPE!
+
+=== Die verdammten Runner
+
+Spring Runner? Cool!
+
+Parameterized Runner? Cool!
+
+Parametrisierte Spring Tests? NOPE!
+
+=== Neu syntaktische Möglichkeiten
+
+Lambdas!
+
+=== Historie
+
+2012: erster Vorschlag auf Mailing Liste
+
+2014: Diskussion bei XP-Days Hamburg
+
+Mitte 2015: Indigo Kampagne
+
+Ende 2015: Prototyp
+
+Feb 2016: JUnit 5.0 Alpha
+
+Juli 2016: JUnit Jupiter M1 & M2
