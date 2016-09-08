@@ -1,9 +1,0 @@
-== Exercise Personen
-Entwerfe *Personen* die den folgenden Ansprüchen gerecht werden
-
-* Personen haben Standardattribute (Name, Geburtsdatum)
-* Es gibt spezielle Personen
-** Lieferanten haben eine Lieferzeit
-** Kunden haben einen Liste von Aufträgen
-** Mitarbeiter haben
-* Eine Person kann sowohl Lieferant, Kunde als auch Mitarbeiter sein.
