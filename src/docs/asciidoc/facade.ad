@@ -1,0 +1,49 @@
+== Facade
+
+=== Problem
+
+Ein Teilsystem besteht aus mehrere/komplexen Klassen. Die Benutzer dieser Klassen sollen
+vor der Komplexität geschützt werden
+
+=== Lösung
+
+[plantuml]
+....
+class Facade
+class Client
+Client --> Facade
+
+package Subsystem {
+  class One
+  class Two
+  class Three
+  class Four
+
+  One --> Two
+  One --> Three
+  One --> Four
+
+  Two --> One
+  Two --> Three
+  Two --> Four
+
+
+  Four --> Two
+  Four --> One
+
+  Three --> Two
+  Three --> Four
+
+  Facade --> One
+  Facade --> Two
+  Facade --> Four
+}
+....
+
+Eine Facade kapselt den Zugriff auf das Subsystem, so dass Benutzer das Subsystem gar nicht sehen
+
+=== Bemerkung
+
+* Implementiert die Facade ein vorgegebenes Interface, ist es ein Adapter
+* Eine Facade kann aus mehreren Klassen bestehen
+* Eine Facade kann Teil des Subsystems sein, oder getrennt davon existieren

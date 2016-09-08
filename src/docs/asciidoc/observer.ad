@@ -1,0 +1,78 @@
+== Observer
+
+=== Problem
+
+Ein oder mehrere Klassen sollen über Zustandsänderungen einer Klasse informiert werden,
+Die Klassen sollen aber unabhängig bleiben
+
+=== Lösung
+
+[plantuml]
+....
+class Subject {
+    void addListener(l : Listener)
+    void removeListener(l : Listener)
+}
+interface Listener {
+    void notify()
+}
+class ConcreteListener implements Listener
+
+Subject --> Listener
+....
+
+An der Klasse, die über Statusänderungen informieren soll (Subject) lassen sich Listener
+registrieren. Bei einer Statusänderung ruft das Subject die notify Methode aller registrierten
+Listener auf.
+
+Listener werden auch Observer genannt.
+
+=== Varianten
+
+* es kann mehrere notify Methoden geben
+* notify kann ein Event als Parameter bekommen, wobei das Event die Zustandsänderung beschreibt, z.B. alte und neue
+Werte.
+* notify kann das Observable als argument bekommen, auch als Attribute des Events
+* Der Begriff Zustandsänderung ist eher weit zu fassen.
+
+=== Bemerkungen Zyklen
+
+Wenn Listener selbst Subjects sind oder andere Subjects verändern kann es zu sehr
+verwirrenden Aufrufketten,
+bis hin zu Endlosschleifen kommen.
+
+=== Bemerkungen Speicherlecks
+
+Das Subject hält eine Referenz auf die Listener, damit die Listener vom
+Garbage Collector entfernt werden können müssen
+sie also explizit deregistriert werden.
+
+=== Codebeispiel 1/2
+
+[source,java]
+.Bird.java
+----
+include::../../main/java/de/onsite/ood/observer/Bird.java[tags=example]
+----
+
+=== Codebeispiel 2/2
+
+[source,java]
+.BirdListener.java
+----
+include::../../main/java/de/onsite/ood/observer/BirdListener.java[tags=example]
+----
+
+[source,java]
+.Cat.java
+----
+include::../../main/java/de/onsite/ood/observer/Cat.java[tags=example]
+----
+
+[source,java]
+.Human.java
+----
+include::../../main/java/de/onsite/ood/observer/Human.java[tags=example]
+----
+
+

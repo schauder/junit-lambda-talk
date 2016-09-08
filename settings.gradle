@@ -1,0 +1,7 @@
+include 'money-exercise'
+include 'money-solution'
+include 'data-pump-exercise'
+include 'data-pump-solution'
+include 'cache-exercise'
+include 'cache-solution'
+

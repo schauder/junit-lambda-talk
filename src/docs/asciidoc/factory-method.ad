@@ -1,0 +1,78 @@
+== Factory Method Pattern
+
+=== Problem
+
+Eine Klasse benötigt Instanzen, die ein bestimmtes Interface impementieren,
+aber nur Subklassen können entscheiden welche konkrete Klasse verwendet werden muss.
+
+=== Lösung
+
+[plantuml]
+....
+abstract class Creator{
+    {abstract} Product createProduct()
+    void someOperation()
+}
+note right: someOperation ruft createProduct() auf.
+class ConcreteCreator extends Creator {
+   Product createProduct()
+}
+interface Product
+class ConcreteProduct implements Product
+
+ConcreteCreator ..> ConcreteProduct : creates
+....
+
+Die Klasse definiert eine (abstrakte) Factory Methode, welche von abgeleiteten Klassen implementiert wird
+
+=== Code Beispiel 1/3
+
+[source,java]
+.Student.java
+----
+include::../../main/java/de/onsite/ood/factorymethod/Student.java[tags=example]
+----
+
+[source,java]
+.Teacher.java
+----
+include::../../main/java/de/onsite/ood/factorymethod/Teacher.java[tags=example]
+----
+
+=== Code Beispiel 2/3
+
+[source,java]
+.Problem.java
+----
+include::../../main/java/de/onsite/ood/factorymethod/Problem.java[tags=example]
+----
+
+=== Code Beispiel 3/3
+
+[source,java]
+.MathTeacher.java
+----
+include::../../main/java/de/onsite/ood/factorymethod/MathTeacher.java[tags=example]
+----
+
+[source,java]
+.MathProblem.java
+----
+include::../../main/java/de/onsite/ood/factorymethod/MathProblem.java[tags=example]
+----
+
+=== Varianten
+
+* Der Creator kann die Factory Methode selbst verwenden, muss dies aber nicht
+* Der Creator kann eine Default Implementierung liefern
+* Wenn die Factory nur die eine Methode hat, können Lambdas verwendet werden.
+
+=== Ähnliche Patterns
+
+* Die Methode kann dynamisch entscheiden, welche Product Implementierung verwendet werden soll.
+* Ein Creator kann verschiedene Factory Methoden für unterschiedliche Produkte zur Verfügung stellen, dies ist dann eine Abstract Factory.
+* Gibt es nur eine einfache Klasse, und eine entsprechende Factory (ohne Interfaces) wird dies oft als SimpleFactory bezeichnet
+
+=== Alternative Sichtweise
+
+Factory Method ist das Strategy Pattern angewandt auf das Problem der Instanzerzeugung

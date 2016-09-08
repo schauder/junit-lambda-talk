@@ -1,0 +1,41 @@
+== Null Object Pattern
+=== Problem
+`NULL` Wert benötigen spezielle Behandlung
+
+=== Beispiel
+[source,java]
+.AnimalSoundManagerWithCheck.java
+----
+include::../../main/java/de/onsite/ood/nullobject/AnimalSoundManagerWithCheck.java[tags=example]
+----
+
+=== Lösung
+
+[plantuml]
+....
+class SomeClass
+class NullObject extends SomeClass {
+  {static} NullObject instance
+}
+....
+
+Spezielle Klasse/Objekt für nicht vorhandene Objekte.
+
+=== Code Beispiel
+[source,java]
+.AnimalSoundManagerWithNullObject.java
+----
+include::../../main/java/de/onsite/ood/nullobject/AnimalSoundManagerWithNullObject.java[tags=example]
+----
+
+[source,java]
+.NoAnimal.java
+----
+include::../../main/java/de/onsite/ood/nullobject/NoAnimal.java[tags=example]
+----
+
+=== Beispiele
+
+* Collections: Leere Collection
+* String: Leerer String
+* Optional

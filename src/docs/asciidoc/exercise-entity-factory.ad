@@ -1,0 +1,25 @@
+== Exercise: EntityFactory
+
+Für Tests sollen Entities erzeugt und in der Datenbank gespeichert werden.
+
+Es gibt 3 verschiedene Entitäten
+Jede Entität hat verschiedene Attribute, die teilweise not null sind, d.h. vor dem speichern
+auf einen Wert gesetzt werden müssen.
+
+Mit
+
+    new <EntityName>Builder().create()
+
+soll eine jeweils passende Entität erzeugt werden,
+die ihre not null Attribute auf einen geeigneten Wert gesetzt haben.
+
+Mit
+
+    new <EntityName>Builder()
+    .with<AttributeName1>(<AttributeValue1>)
+    .with<AttributeName2>(<AttributeValue2>)
+    .create()
+
+soll eine Entität mit den entsprechendne Attributewerten erzeugt werden.
+
+

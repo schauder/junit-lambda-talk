@@ -1,0 +1,108 @@
+== Namen & Kommentare
+
+=== Weder noch :-(
+
+[source, java]
+----
+drawRect(120,200, 150, 100, 16581374)
+----
+
+=== Namen zur Rettung
+
+[source, java]
+----
+int left = 120
+int bottom = 200
+int width = 150
+int height = 100
+int white = 16581374
+drawRect(left, bottom, width, height, white)
+----
+
+=== Ein guter Kommentar?
+
+[source, java]
+----
+/** Representiert eine Person. Instanzen dieser Klasse sind immutable
+und können von beliebigen Threads
+gemeinsam genutzt werden. */
+public class Person { ... }
+----
+
+=== Warum nicht so?
+
+[source, java]
+----
+public class ImmutablePersion { ... }
+----
+
+=== Aus dem realen Leben
+
+[source, java]
+----
+/** liefert den Namen */
+public String getName(){ ... }
+----
+
+=== Schlimmer geht immer
+
+[source, java]
+----
+/** Flag ist immer false */
+public final boolean someFlag = true;
+----
+
+=== Kopfkommentare
+
+[source, java]
+----
+    /**
+    @created 11.9.2004
+    @author Jens Schauder
+    @project Family Manager 2.0
+    Zuletzt geändert durch Max Mustermann: Logging eingefügt.
+    */
+----
+
+=== Code Blöcke
+[source, java]
+----
+{
+    // do x
+    ... code doing x ...
+
+    // do y
+    ... code doing y ...
+
+    // do z
+    ... code doing z
+}
+----
+
+=== Extract Method
+
+[source, java]
+----
+{
+    doX();
+    doY();
+    doZ();
+}
+----
+
+=== Wichtige Erkenntnis!
+
+Methoden vermeiden nicht nur Code Duplikation sondern machen Code lesbarer.
+
+=== Gute und Wichtige Kommentare!
+
+* Dinge erklären, die der Code nicht liefern kann
+* Wo gehört dieses Teil in den Gesamtkontext der Anwendung
+* Erläuterung von Hacks, inklusive Begründung, warum sie verwendet wurden (und z.B. Links auf Bug Datenbank oder Stackoverflow ...)
+
+=== Beispiel Train
+
+* der Zug in dem ich Gestern gesessen habe?
+* das Ding, das jeden Sonntag von Braunschweig um 16:27 abfährt?
+* Wenn er Weihnachten einen Waggon weniger hat, ist es der gleiche Zug?
+* Was ist bei Zugteilungen?

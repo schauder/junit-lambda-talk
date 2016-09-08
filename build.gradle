@@ -1,0 +1,149 @@
+
+buildscript {
+    dependencies {
+        classpath 'org.ysb33r.gradle:vfs-gradle-plugin:1.0-beta8'
+        classpath 'commons-httpclient:commons-httpclient:3.1'
+        classpath 'org.asciidoctor:asciidoctorj-pdf:1.5.0-alpha.11'
+    }
+}
+
+plugins {
+    id 'org.asciidoctor.convert' version '1.5.3'
+    id 'com.github.jruby-gradle.base' version '1.2.1'
+}
+
+allprojects {
+    apply plugin: 'java'
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        testCompile 'junit:junit:4.12'
+        testCompile 'org.mockito:mockito-all:1.10.19'
+    }
+}
+
+
+apply plugin: 'com.github.jruby-gradle.base'
+apply plugin: 'org.ysb33r.vfs'
+apply plugin: 'org.asciidoctor.convert'
+
+
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.13'
+}
+
+ext {
+    revealjsVersion = '3.3.0'
+    asciidoctorBackendVersion = 'master'
+    downloadDir = new File(buildDir, 'download')
+    templateDir = new File(downloadDir, 'templates')
+    revealjsDir = new File(downloadDir, 'reveal.js')
+}
+
+
+dependencies {
+    gems 'rubygems:slim:3.0.6'
+    gems 'rubygems:thread_safe:0.3.5'
+    gems 'rubygems:asciidoctor-diagram:1.4.0'
+
+}
+
+task download << {
+    mkdir downloadDir
+    vfs {
+        options 'vfs.http.proxyHost': project.property("systemProp.http.proxyHost")
+        options 'vfs.http.proxyPort': project.property("systemProp.http.proxyPort")
+        options 'vfs.https.proxyHost': project.property("systemProp.http.proxyHost")
+        options 'vfs.https.proxyPort': project.property("systemProp.http.proxyPort")
+
+        cp "zip:https://github.com/asciidoctor/asciidoctor-reveal.js/archive/${asciidoctorBackendVersion}.zip!asciidoctor-reveal.js-${asciidoctorBackendVersion}",
+                templateDir, recursive: true, overwrite: true
+        cp "zip:https://github.com/hakimel/reveal.js/archive/${revealjsVersion}.zip!reveal.js-${revealjsVersion}",
+                revealjsDir, recursive: true, overwrite: true
+    }
+}
+
+download {
+    description "Download extra revealjs resources"
+    outputs.dir templateDir
+    outputs.dir revealjsDir
+}
+
+asciidoctorj {
+    version = '1.5.4'
+}
+
+
+
+def asciidocConfig = {
+
+    dependsOn jrubyPrepare
+    gemPath = jrubyPrepare.outputDir
+
+    sources {
+        include 'ood.ad'
+    }
+
+    resources {
+        from(sourceDir) {
+            include 'images/**'
+            include 'assets/**'
+            include 'lib/**'
+            include 'theme/**'
+        }
+        from(downloadDir) {
+            include 'reveal.js/**'
+        }
+    }
+
+
+    attributes 'build-gradle': file('build.gradle'),
+            'sourcedir': project.sourceSets.main.java.srcDirs[0],
+            'endpoint-url': 'http://example.org',
+            'source-highlighter': 'highlightjs',
+            'highlightjs-theme': 'lib/css/zenburn.css',
+            'imagesdir': './images',
+//            'toc': '',
+            'icons': 'font',
+            'setanchors': '',
+            'idprefix': 'slide-',
+            'idseparator': '-',
+            'docinfo1': '',
+            'revealjs_customtheme': 'theme/jswhite.css',
+            'revealjs_transition': 'linear',
+            'revealjs_history': 'true',
+            'revealjs_slideNumber': 'true',
+            'revealjs_center': 'false'
+
+    options template_dirs: [new File(templateDir, 'templates/slim').absolutePath]
+
+
+    requires = ['asciidoctor-diagram', 'asciidoctor-diagram/plantuml', 'asciidoctor-diagram/blockdiag']
+    dependsOn download
+    dependsOn test
+}
+
+task asciidocPdf(type: org.asciidoctor.gradle.AsciidoctorTask)
+tasks.asciidocPdf.configure asciidocConfig
+tasks.asciidocPdf.configure {
+    backends 'pdf'
+}
+
+task asciidocReveal(type: org.asciidoctor.gradle.AsciidoctorTask)
+tasks.asciidocReveal.configure asciidocConfig
+tasks.asciidocReveal.configure {
+    backends 'revealjs'
+}
+
+task asciidocAll {
+//    dependsOn asciidocPdf
+    dependsOn asciidocReveal
+}
+
+
+build.dependsOn asciidocAll
+

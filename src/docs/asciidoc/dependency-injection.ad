@@ -1,0 +1,83 @@
+== Dependency Injection Pattern
+Achtung! Aufwachen! Doppel Plus Wichtig!
+
+=== Problem
+Eine Klasse A benötigt ein Objekt von Typ B. Wie erhält es Zugriff auf dieses Object?
+
+=== Alternativen
+* A holt sich eine globale Instanz von B (Singleton)
+* A erzeugt eine neue Instanz von B (naive Lösung)
+* A holt sich eine Instanz von einem separaten Service (Service Locator Pattern)
+* A lässt sich eine neue Instanz erzeugen (Factory Pattern)
+
+Bei all diesen Varianten bestimmt A wo die Instanz herkommt
+
+=== Lösung
+
+[plantuml]
+....
+class ServiceClient
+interface Service
+class ServiceImpl implements Service
+class Assembler
+
+ServiceClient --> Service
+Assembler --> ServiceImpl
+Assembler --> ServiceClient
+....
+
+A bekommt die zu verwendende Instanz als Parameter.
+
+=== Code Beispiel (ohne DI)
+
+[source,java]
+.CatWoDi.java
+----
+include::../../main/java/de/onsite/ood/di/CatWoDi.java[tags=example]
+----
+
+[source,java]
+.FoodDispenser.java
+----
+include::../../main/java/de/onsite/ood/di/FoodDispenser.java[tags=example]
+----
+
+=== Code Beispiel (ohne DI)
+
+[source,java]
+.CatWithDi.java
+----
+include::../../main/java/de/onsite/ood/di/CatWithDi.java[tags=example]
+----
+
+[source,java]
+.Assembler.java
+----
+include::../../main/java/de/onsite/ood/di/Assembler.java[tags=example]
+----
+
+=== Bemerkung: Auswirkungen
+
+Ohne DI benötigt man eine neue Katze, wenn man sie anders füttern will ...
+
+=== Bemerkung: Frameworks
+
+Context Klassen lassen sich weitgehend automatisieren:
+
+* Erzeuge eine Instanz von allen Klassen ohne Konstruktorparameter
+* Erzeuge eine Instanz von allen Klassen mit einem Konstruktor Parameter,
+wobei die im vorigen Schritt erzeugten Instanzen verwendet werden.
+* usw.
+
+Das ist die Prinzipielle Idee von Frameworks von CDI, Spring und Co.
+
+=== Bemerkung: Varianten
+
+==== Setter Injection
+Ok, wenn die Abhängigkeit optional ist.
+
+==== Field Injection
+Nicht Ok, da Code ohne Framework nicht lauffähig ist
+
+==== Konstruktor Injection
+FTW

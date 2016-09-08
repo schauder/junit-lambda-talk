@@ -1,0 +1,6 @@
+*.iml
+.idea/
+build/
+.gradle/
+diag-*.png
+diag-*.png.cache

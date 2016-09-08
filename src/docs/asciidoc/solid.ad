@@ -1,0 +1,39 @@
+== S.O.L.I.D
+
+=== Historie
+
+Von Robert C. Martin zusammengetragen
+
+_aka "Uncle Bob"_
+
+http://bit.ly/Txmra
+
+Die Prinzipien sind viel älter.
+
+=== Single Responsibility Principle
+
+Jede Code Einheit hat genau eine Aufgabe
+
+=== Open Closed Principle
+
+Schaut euch Kevlin Henney "Deconstructing S.O.L.I.D" an.
+
+=== Liskovs Substitution Problem
+
+Aus `A extends B` und `C` verwendet B` folgt, `C` kann auch `A` verwenden
+
+=== Interface Segregation Principle
+
+SRP für Interfaces
+
+=== Dependency Injection
+
+Parameter übergeben
+
+=== Andere Richtlinien
+
+* DRY
+* KISS
+* YAGNI
+* 4 Rules of Simple Design
+
