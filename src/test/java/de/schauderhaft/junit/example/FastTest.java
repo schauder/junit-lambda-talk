@@ -1,5 +1,5 @@
 package de.schauderhaft.junit.example;
-
+// tag::example[]
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -13,3 +13,4 @@ import java.lang.annotation.Target;
 @Tag("fast")
 @Test
 public @interface FastTest {}
+// end::example[]

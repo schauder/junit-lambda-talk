@@ -222,10 +222,36 @@ include::../../test/java/de/schauderhaft/junit/example/$04ProperJUnit5Test.java[
 image::nested-intellij.png[]
 
 [source,java]
-.$06NestedTests.java
+.$05NestedTests.java
 ----
-include::../../test/java/de/schauderhaft/junit/example/$06NestedTests.java[tags=example]
+include::../../test/java/de/schauderhaft/junit/example/$05NestedTests.java[tags=example]
 ----
 
+=== Tagging
 
+[source,java]
+.$06TaggedTest.java
+----
+include::../../test/java/de/schauderhaft/junit/example/$06TaggedTest.java[tags=example]
+----
 
+=== Tagging Metaannotationen
+
+[source,java]
+.FastTest.java
+----
+include::../../test/java/de/schauderhaft/junit/example/FastTest.java[tags=example]
+----
+
+=== Filtern (Gradle Plugin)
+
+[source, groovy]
+----
+junitPlatform {
+    tags {
+        include 'fast', 'smoke'
+        // exclude 'slow', 'ci'
+    }
+    includeClassNamePattern '.*Tests'
+}
+----

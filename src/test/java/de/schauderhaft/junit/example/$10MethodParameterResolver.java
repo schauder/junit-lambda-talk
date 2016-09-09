@@ -12,7 +12,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 @ExtendWith({
         RandomParameterResolver.class
 })
-public class $05MethodParameterResolver {
+public class $10MethodParameterResolver {
     @Test
     void testMethodParameterResolver(
             String arg,
