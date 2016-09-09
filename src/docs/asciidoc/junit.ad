@@ -280,4 +280,37 @@ after all
 
 == Dynamische Tests
 
+=== Mit Collections
+
+[source,java]
+.$10DynamicWithCollectionTest.java
+----
+include::../../test/java/de/schauderhaft/junit/example/$10DynamicWithCollectionTest.java[tags=example]
+----
+
+
+=== Mit Streams
+
+[source,java]
+.$11DynamicWithStreamsTest.java
+----
+include::../../test/java/de/schauderhaft/junit/example/$11DynamicWithStreamsTest.java[tags=example]
+----
+
+
+=== Mit Pixie Dust
+
+[source,java]
+.$12DynamicWithPixyDustTest.java
+----
+include::../../test/java/de/schauderhaft/junit/example/$12DynamicWithPixyDustTest.java[tags=example]
+----
+
+=== Warnung
+
+.Dynamic Test Lifecycle
+WARNING: The execution lifecycle of a dynamic test is quite different than it is for a
+standard `@Test` case. Specifically, there are not any lifecycle callbacks for dynamic
+tests.
+
 == Extending Tests
