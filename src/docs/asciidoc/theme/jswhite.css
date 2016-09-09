@@ -124,6 +124,12 @@ body {
   line-height: 1.3;
   text-align: left; }
 
+.reveal .sidebarblock {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+}
+
 .reveal .sidebarblock p {
   text-align: right;
   font-size: smaller;
