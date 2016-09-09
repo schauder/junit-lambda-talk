@@ -26,6 +26,7 @@ dependencies {
     testCompile 'org.hamcrest:hamcrest-all:1.3'
     testCompile 'org.junit.jupiter:junit-jupiter-engine:5.0.0-M2' // junit 5 engine
     testCompile 'org.junit.vintage:junit-vintage-engine:4.12.0-M2' // junit 4 engine
+    testCompile 'org.junit.platform:junit-platform-runner:1.0.0-M2' // JUnitPlatform.class Runner
 }
 
 

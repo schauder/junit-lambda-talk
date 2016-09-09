@@ -3,7 +3,6 @@ package de.schauderhaft.junit.example;
 
 import org.junit.jupiter.api.*;
 
-public
 // class needs only package scope -> reduced noise
 class $04ProperJUnit5Test {
 

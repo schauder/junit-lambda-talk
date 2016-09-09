@@ -89,6 +89,10 @@ package Opentest4j {
 [opentest4j]
 }
 
+package JUnit4 {
+[junit4]
+}
+
 jupiterapi ..> opentest4j
 jupiterapi ..> commons
 
@@ -102,8 +106,69 @@ gradle ..> console
 launcher ..> engine
 
 runner ..> launcher
+runner ..> junit4
 
 surefire ..> launcher
 
 vintage ..> engine
+vintage ..> junit4
 ....
+
+=== Keine Package Zyklen
+
+Dank Degraph
+
+****
+https://github.com/junit-team/junit5/pull/71[shameless plug]
+****
+
+=== Ablauf
+
+Launcher starten
+
+Launcher findet Engines
+
+Engines finden Tests
+
+Engines führen Tests aus
+
+=== Tests starten
+
+Gradle Plugin
+
+Maven Plugin
+
+Console Runner
+
+IntelliJ Plugin (von JetBrains)
+
+****
+Kein Eclipse Support
+****
+
+== Einfache Tests
+
+=== JUnit4 Test laufen auch mit JUnit5
+
+[plantuml]
+....
+[Tool Integration] ..> [platform-launcher]
+[platform-launcher] ..> [vintage-engine] : finds
+[vintage-engine] ..> [junit4]
+....
+
+=== JUnit5 läuft mit JUnit4
+
+[plantuml]
+....
+[junit4] ..> [platform-runner]
+[platform-runner] ..> [platform-launcher]
+[platform-launcher] ..> [engines] : finds
+....
+
+****
+Workaround für Eclipse
+****
+
+
+
