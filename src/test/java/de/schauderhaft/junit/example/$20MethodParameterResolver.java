@@ -5,20 +5,19 @@ import org.junit.jupiter.api.TestInfo;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 import static org.hamcrest.CoreMatchers.containsString;
-import static org.hamcrest.CoreMatchers.endsWith;
 import static org.hamcrest.CoreMatchers.startsWith;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-@ExtendWith({
-        RandomParameterResolver.class
-})
-public class $10MethodParameterResolver {
+@ExtendWith({RandomParameterResolver.class})
+class $20MethodParameterResolver {
     @Test
     void testMethodParameterResolver(
             String arg,
-            TestInfo testInfo // is provided by the TestInfoResolver, which is always present
+            // provided by the TestInfoResolver,
+            // which is always present
+            TestInfo testInfo
     ) {
-        assertThat(testInfo.getDisplayName() , containsString("Resolver"));
+        assertThat(testInfo.getDisplayName(), containsString("Resolver"));
 
         assertThat(arg, startsWith("Jens"));
     }
