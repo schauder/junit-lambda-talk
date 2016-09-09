@@ -104,7 +104,6 @@ def asciidocConfig = {
         }
     }
 
-
     attributes 'build-gradle': file('build.gradle'),
             'sourcedir': project.sourceSets.main.java.srcDirs[0],
             'endpoint-url': 'http://de.schauderhaft.junit.example.example.org',
@@ -121,7 +120,9 @@ def asciidocConfig = {
             'revealjs_transition': 'linear',
             'revealjs_history': 'true',
             'revealjs_slideNumber': 'true',
-            'revealjs_center': 'false'
+            'revealjs_center': 'false',
+            'revealjs_width': 1280,
+            'revealjs_height': 800
 
     options template_dirs: [new File(templateDir, 'templates/slim').absolutePath]
 
