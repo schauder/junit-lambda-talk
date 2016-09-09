@@ -7,7 +7,7 @@ import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 // tag::example[]
-abstract class $12DynamicWithPixyDustTest extends LambdaBasedTests {{
+class $12DynamicWithPixyDustTest extends LambdaBased {{
         List<Integer> ints = asList(Integer.MAX_VALUE, Integer.MIN_VALUE, -1, 0, 1, 2, 10);
 
         for (Integer i : ints) {

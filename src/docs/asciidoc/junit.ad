@@ -314,9 +314,9 @@ include::../../test/java/de/schauderhaft/junit/example/$12DynamicWithPixyDustTes
 === Der Pixie Dust
 
 [source,java]
-.LambdaBasedTests.java
+.LambdaBased.java
 ----
-include::../../test/java/de/schauderhaft/junit/example/LambdaBasedTests.java[tags=example]
+include::../../test/java/de/schauderhaft/junit/example/LambdaBased.java[tags=example]
 ----
 
 === Warnung
@@ -327,3 +327,97 @@ standard `@Test` case. Specifically, there are not any lifecycle callbacks for d
 tests.
 
 == Extending Tests
+
+=== Tests mit Parameter
+
+[source,java]
+.$20MethodParameterResolverTest.java
+----
+include::../../test/java/de/schauderhaft/junit/example/$20MethodParameterResolverTest.java[tags=example]
+----
+
+=== Parameter Resolver
+
+[source,java]
+.RandomParameterResolver.java
+----
+include::../../test/java/de/schauderhaft/junit/example/RandomParameterResolver.java[tags=example]
+----
+
+=== Mehrere Extension kombinieren, der Test
+
+[source,java]
+.$21BeforeAfterExtensionTest.java
+----
+include::../../test/java/de/schauderhaft/junit/example/$21BeforeAfterExtensionTest.java[tags=example]
+----
+
+=== Extensions kombinieren (Extension)
+
+[source,java]
+.WithDatasource.java
+----
+include::../../test/java/de/schauderhaft/junit/example/WithDatasource.java[tags=example]
+----
+
+=== Extensions kombinieren (Datasource)
+
+[source,java]
+.MyDatasource.java
+----
+include::../../test/java/de/schauderhaft/junit/example/MyDatasource.java[tags=example]
+----
+
+=== Extensions kombinieren (Ergebnis)
+
+----
+before
+in test one with DSMyDatasource #1
+after
+before
+in test two with DSMyDatasource #2
+after
+----
+
+=== Extension Callbacks
+
+----
+AfterAllCallback
+AfterEachCallback
+AfterTestExecutionCallback
+BeforeAllCallback
+BeforeEachCallback
+BeforeTestExecutionCallback
+ContainerExecutionCondition
+ParameterResolver
+TestExecutionCondition
+TestExecutionExceptionHandler
+TestInstancePostProcessor
+----
+
+== Was vom Vortrag übrig blieb
+
+=== API Annotations
+
+[source, java]
+----
+@API(Experimental)
+----
+
+Mit den Ausprägungen
+
+----
+Internal,
+Deprecated
+Experimental
+Maintained
+Stable
+----
+
+==== Spring Extension
+
+Ist in Arbeit
+
+****
+https://github.com/sbrannen/spring-test-junit5
+****

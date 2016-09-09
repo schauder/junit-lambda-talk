@@ -1,21 +1,41 @@
 package de.schauderhaft.junit.example;
 
-import org.junit.jupiter.api.extension.AfterEachCallback;
-import org.junit.jupiter.api.extension.BeforeEachCallback;
-import org.junit.jupiter.api.extension.TestExtensionContext;
+// tag::example[]
+import org.junit.jupiter.api.extension.*;
 
-public class WithDatasource implements BeforeEachCallback, AfterEachCallback {
+public class WithDatasource implements
+        BeforeEachCallback, AfterEachCallback, ParameterResolver {
+
+    private MyDatasource ds;
 
     @Override
     public void beforeEach(TestExtensionContext testExtensionContext) {
         System.out.println("before");
-        ((NeedDatasource)testExtensionContext.getTestInstance()).set(new MyDatasource());
+        // more setup code goes here
+        ds = new MyDatasource();
     }
 
     @Override
     public void afterEach(TestExtensionContext testExtensionContext) {
         System.out.println("after");
-        ((NeedDatasource)testExtensionContext.getTestInstance()).set(null);
+        ds = null;
     }
 
+    @Override
+    public boolean supports(
+            ParameterContext parameterContext,
+            ExtensionContext extensionContext
+    ) throws ParameterResolutionException {
+        return parameterContext.getParameter().getType()
+                .isAssignableFrom(MyDatasource.class);
+    }
+
+    @Override
+    public Object resolve(
+            ParameterContext parameterContext,
+            ExtensionContext extensionContext
+    ) throws ParameterResolutionException {
+        return ds;
+    }
 }
+// end::example[]

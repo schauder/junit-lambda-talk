@@ -6,8 +6,8 @@ import org.junit.jupiter.api.TestFactory;
 
 import java.util.ArrayList;
 import java.util.List;
-
-public class LambdaBasedTests {
+// tag::example[]
+public abstract class LambdaBased {
     private List<DynamicTest> allTests = new ArrayList<>();
 
     @TestFactory
@@ -23,3 +23,4 @@ public class LambdaBasedTests {
         allTests.add(DynamicTest.dynamicTest(name, executable));
     }
 }
+// end::example[]

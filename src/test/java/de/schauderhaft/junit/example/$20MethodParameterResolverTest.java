@@ -1,15 +1,16 @@
 package de.schauderhaft.junit.example;
 
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInfo;
-import org.junit.jupiter.api.extension.ExtendWith;
-
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.startsWith;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+// tag::example[]
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInfo;
+import org.junit.jupiter.api.extension.ExtendWith;
+
 @ExtendWith({RandomParameterResolver.class})
-class $20MethodParameterResolver {
+class $20MethodParameterResolverTest {
     @Test
     void testMethodParameterResolver(
             String arg,
@@ -22,3 +23,4 @@ class $20MethodParameterResolver {
         assertThat(arg, startsWith("Jens"));
     }
 }
+// end::example[]
