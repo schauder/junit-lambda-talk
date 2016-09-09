@@ -280,6 +280,11 @@ after all
 
 == Dynamische Tests
 
+
+.Caffein required
+WARNING: The following uses Java 8 features. You might want to apply caffein now.
+
+
 === Mit Collections
 
 [source,java]
@@ -304,6 +309,14 @@ include::../../test/java/de/schauderhaft/junit/example/$11DynamicWithStreamsTest
 .$12DynamicWithPixyDustTest.java
 ----
 include::../../test/java/de/schauderhaft/junit/example/$12DynamicWithPixyDustTest.java[tags=example]
+----
+
+=== Der Pixie Dust
+
+[source,java]
+.LambdaBasedTests.java
+----
+include::../../test/java/de/schauderhaft/junit/example/LambdaBasedTests.java[tags=example]
 ----
 
 === Warnung
