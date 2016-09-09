@@ -395,6 +395,15 @@ TestExecutionExceptionHandler
 TestInstancePostProcessor
 ----
 
+=== Limitierungen
+
+* Tests N-Mal ausführen
+* Tests in anderem Thread ausführen (z.B. Swing EDT)
+
+****
+https://github.com/junit-team/junit5/issues/157
+****
+
 == Was vom Vortrag übrig blieb
 
 === API Annotations
@@ -420,4 +429,39 @@ Ist in Arbeit
 
 ****
 https://github.com/sbrannen/spring-test-junit5
+****
+
+== Zusammenfassung
+
+* JUnit 5 wird wesentlich aufgeräumter
+
+* Mächtiger Extension Mechanismus
+
+* Test mit Closures möglich aber nicht 100% integriert
+
+* Schaut es euch an und gebt Feedback
+
+=== Oder soll Marc Recht behalten?
+
+[quote, Marc Philipp, Keeper of the Green Bar]
+Ich fürchte, die meisten werden auf die finale Version warten und dann meckern…
+
+
+== Fragen?
+
+Kommt nach Vorne.
+
+Ich antworte gerne.
+
+Allen anderen einen schönen Tag.
+
+****
+Jens Schauder
+
+http://blog.schauderhaft.de
+
+https://twitter.com/jensschauder[@jensschauder]
+
+
+http://www.t-systems-onsite.de/[T-Systems on site services GmbH]
 ****
