@@ -1,23 +1,25 @@
 package de.schauderhaft.junit.example;
 
+//tag::example[]
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-public class $06NestedTests {
-
+class $06NestedTests {
 
     @Nested
     class NestedClass {
         @Test
-        void inNested() {
-        }
+        void inNested() {}
     }
+
+    @Test
+    void inParent() {}
 
     // Nested does not work here
     // Note that the test is in a static inner class yet not "part" of the containing test
-    public static class NestedStaticClass {
+    static class NestedStaticClass {
         @Test
-        void inStaticNested() {
-        }
+        void inStaticNested() {}
     }
 }
+//end::example[]

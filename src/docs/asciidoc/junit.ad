@@ -143,10 +143,10 @@ Console Runner
 IntelliJ Plugin (von JetBrains)
 
 ****
-Kein Eclipse Support
+https://bugs.eclipse.org/bugs/show_bug.cgi?id=488566[Kein Eclipse Support]
 ****
 
-== Einfache Tests
+== Einfache Tests!
 
 === JUnit4 Test laufen auch mit JUnit5
 
@@ -166,9 +166,66 @@ Kein Eclipse Support
 [platform-launcher] ..> [engines] : finds
 ....
 
+[source,java]
+.$02JUnit5WithRunnerTest.java
+----
+include::../../test/java/de/schauderhaft/junit/example/$02JUnit5WithRunnerTest.java[tags=example]
+----
+
 ****
-Workaround für Eclipse
+Workaround für Eclipse]
 ****
+
+=== Zeichen sparen
+
+[source,java]
+.$04ProperJUnit5Test.java
+----
+include::../../test/java/de/schauderhaft/junit/example/$04ProperJUnit5Test.java[tags=example]
+----
+
+=== Tests  disablen
+
+[source,java]
+.$04ProperJUnit5Test.java
+----
+include::../../test/java/de/schauderhaft/junit/example/$04ProperJUnit5Test.java[tags=disabled]
+----
+
+=== Assume
+
+[source,java]
+.$04ProperJUnit5Test.java
+----
+include::../../test/java/de/schauderhaft/junit/example/$04ProperJUnit5Test.java[tags=assume]
+----
+
+=== Coole Namen
+
+[source,java]
+.$04ProperJUnit5Test.java
+----
+include::../../test/java/de/schauderhaft/junit/example/$04ProperJUnit5Test.java[tags=name]
+----
+
+
+=== Exceptions
+
+[source,java]
+.$04ProperJUnit5Test.java
+----
+include::../../test/java/de/schauderhaft/junit/example/$04ProperJUnit5Test.java[tags=exception]
+----
+
+=== Nested
+
+image::nested-intellij.png[]
+
+[source,java]
+.$06NestedTests.java
+----
+include::../../test/java/de/schauderhaft/junit/example/$06NestedTests.java[tags=example]
+----
 
 
 

@@ -1,5 +1,6 @@
 package de.schauderhaft.junit.example;
 
+// tag::example[]
 
 import org.junit.jupiter.api.*;
 
@@ -8,40 +9,53 @@ class $04ProperJUnit5Test {
 
     // new annotation
     @Test
-    void shouldFail() { // again only package scope -> reduced noise
+    void someTest() { // again only package scope -> reduced noise
         // Assertions replaces Assert for simple stuff
-        Assertions.assertEquals(5, quersumme(23), "JUnit5 test executed, which is great, so this fails ... whatever");
+        Assertions.assertEquals(5, quersumme(23));
 
         // you probably want to use AssertJ, Hamcrest or similar anyway
     }
+    // end::example[]
+
+
+    // tag::disabled[]
     @Test
     @Disabled
-        // replaces @Ignored
+    // replaces @Ignored
     void ignored() {
     }
+    // end::disabled[]
 
+    // tag::assume[]
     @Test
     void abortTests() {
-        Assumptions.assumeTrue(false); // abort the test -> not failed, but execution stops anyway.
+        // abort the test -> not failed, but execution stops anyway.
+        Assumptions.assumeTrue(false);
     }
+    // end::assume[]
 
 
+    // tag::name[]
     @Test
     @DisplayName("Realy Awesome Name \uD83D\uDC4C")
-        // <-- should be an ok symbol
+    //  should be an ok symbol -------^
     void stupidName() {
     }
+    // end::name[]
 
 
-    @Test
-    void testExceptions() { // the new @Test annotation doesn't have an 'expected'
+    // tag::exception[]
+    @Test // the new @Test annotation doesn't have an 'expected'
+    void testExceptions() {
 
         final String argument = "forty-two";
-        final IllegalArgumentException exception = Assertions.expectThrows(IllegalArgumentException.class, () -> {
-            parseRomanNumeral(argument);
-        });
+        final IllegalArgumentException exception =
+                Assertions.expectThrows(IllegalArgumentException.class, () -> {
+                    parseRomanNumeral(argument);
+                });
         Assertions.assertTrue(exception.getMessage().contains(argument));
     }
+    // end::exception[]
 
     int parseRomanNumeral(String numberString) {
         if (numberString.equals("XXIII")) {
