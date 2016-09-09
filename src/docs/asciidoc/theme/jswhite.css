@@ -129,6 +129,12 @@ body {
   font-size: smaller;
 }
 
+.reveal .listingblock .title{
+  color: gray;
+  font-style: italic;
+  font-size: 60%;
+}
+
 /* Ensure certain elements are never larger than the slide itself */
 .reveal img,
 .reveal video,
