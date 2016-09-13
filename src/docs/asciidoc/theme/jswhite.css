@@ -142,7 +142,6 @@ body {
 }
 
 /* Ensure certain elements are never larger than the slide itself */
-.reveal img,
 .reveal video,
 .reveal iframe {
   max-width: 95%;
@@ -209,9 +208,8 @@ body {
   font-style: italic; }
 
 .reveal pre {
-  display: block;
+  display: inline-block;
   position: relative;
-  width: 100%;
   text-align: left;
   font-size: 0.55em;
   font-family: monospace;
@@ -225,7 +223,7 @@ body {
 
 .reveal pre code {
   display: block;
-  padding: 5px;
+  padding: 15px;
   overflow: auto;
   max-height: 480px;
   word-wrap: normal;
@@ -297,6 +295,14 @@ body {
 .reveal .imageblock {
   float: left;
   margin-right: 2em;
+}
+
+.reveal .imageblock.zoom2 img{
+    width: 200%;
+}
+
+.reveal .imageblock.zoom1 img{
+    width: 150%;
 }
 
 .reveal section img {

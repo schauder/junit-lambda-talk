@@ -150,7 +150,7 @@ https://bugs.eclipse.org/bugs/show_bug.cgi?id=488566[Kein Eclipse Support]
 
 === JUnit4 Test laufen auch mit JUnit5
 
-[plantuml]
+[plantuml, role="zoom1"]
 ....
 [Tool Integration] ..> [platform-launcher]
 [platform-launcher] ..> [vintage-engine] : finds
@@ -159,7 +159,7 @@ https://bugs.eclipse.org/bugs/show_bug.cgi?id=488566[Kein Eclipse Support]
 
 === JUnit5 läuft mit JUnit4
 
-[plantuml]
+[plantuml, role="zoom1"]
 ....
 [junit4] ..> [platform-runner]
 [platform-runner] ..> [platform-launcher]
@@ -217,15 +217,17 @@ include::../../test/java/de/schauderhaft/junit/example/$04ProperJUnit5Test.java[
 include::../../test/java/de/schauderhaft/junit/example/$04ProperJUnit5Test.java[tags=exception]
 ----
 
-=== Nested
-
-image::nested-intellij.png[]
+=== Nested (Source)
 
 [source,java]
 .$05NestedTests.java
 ----
 include::../../test/java/de/schauderhaft/junit/example/$05NestedTests.java[tags=example]
 ----
+
+=== Nested (Result)
+
+image::nested-intellij.png[role="zoom2"]
 
 === Tagging
 
