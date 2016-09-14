@@ -1,4 +1,6 @@
-# OOD Workshop #
+# Talk about JUnit 5 #
+
+**[View the slides here](http://schauder.github.io/junit-lambda-talk/junit.html)**
 
 ### Requirements ###
 
@@ -8,3 +10,9 @@
 ### Build ###
 
 ./gradlew asciidocAll
+
+### Publish ###
+
+
+./gradlew publishGhPages
+
