@@ -288,6 +288,7 @@ body {
   color: #fff;
   background: #1a53a1; }
 
+
 /*********************************************
  * IMAGES
  *********************************************/
@@ -295,6 +296,10 @@ body {
 .reveal .imageblock {
   float: left;
   margin-right: 2em;
+}
+
+.reveal .imageblock.zoom4 img{
+    width: 400%;
 }
 
 .reveal .imageblock.zoom2 img{

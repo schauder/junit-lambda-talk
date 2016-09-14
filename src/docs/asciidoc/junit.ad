@@ -14,6 +14,7 @@ http://www.t-systems-onsite.de/[T-Systems on site services GmbH]
 ****
 
 == Who? ... Me?
+image::who-me.jpg[background,size=initial]
 
 Entwickler, Freunde dürfen mich Architekt nennen
 
@@ -27,6 +28,7 @@ Entwickler von http://schauder.github.io/degraph/[Degraph]
 
 
 == Das haben wir früher auch nicht gebraucht!
+image::new.jpg[background,size=initial]
 
 === Schwer Wartbar
 
@@ -61,6 +63,7 @@ Feb 2016: JUnit 5.0 Alpha
 Juli 2016: JUnit Jupiter M1 & M2
 
 == Internals
+image::internals.jpg[background,size=initial]
 
 === Module
 
@@ -147,6 +150,7 @@ https://bugs.eclipse.org/bugs/show_bug.cgi?id=488566[Kein Eclipse Support]
 ****
 
 == Einfache Tests!
+image::pull.jpg[background,size=initial]
 
 === JUnit4 Test laufen auch mit JUnit5
 
@@ -227,7 +231,7 @@ include::../../test/java/de/schauderhaft/junit/example/$05NestedTests.java[tags=
 
 === Nested (Result)
 
-image::nested-intellij.png[role="zoom2"]
+image::nested-intellij.png[role="zoom4"]
 
 === Tagging
 
@@ -281,6 +285,7 @@ after all
 ----
 
 == Dynamische Tests
+image::clone.jpg[background,size=initial]
 
 
 .Caffein required
@@ -329,6 +334,7 @@ standard `@Test` case. Specifically, there are not any lifecycle callbacks for d
 tests.
 
 == Extending Tests
+image::stupendousman.jpg[background,size=initial]
 
 === Tests mit Parameter
 
@@ -407,6 +413,7 @@ https://github.com/junit-team/junit5/issues/157
 ****
 
 == Was vom Vortrag übrig blieb
+image::spring.jpg[background,size=initial]
 
 === API Annotations
 
@@ -425,7 +432,7 @@ Maintained
 Stable
 ----
 
-==== Spring Extension
+=== Spring Extension
 
 Ist in Arbeit
 
@@ -434,6 +441,7 @@ https://github.com/sbrannen/spring-test-junit5
 ****
 
 == Zusammenfassung
+image::wrap-up.jpg[background,size=initial]
 
 * JUnit 5 wird wesentlich aufgeräumter
 
@@ -450,6 +458,7 @@ Ich fürchte, die meisten werden auf die finale Version warten und dann meckern�
 
 
 == Fragen?
+image::questions.jpg[background,size=initial]
 
 Kommt nach Vorne.
 

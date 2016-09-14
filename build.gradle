@@ -81,8 +81,6 @@ asciidoctorj {
     version = '1.5.4'
 }
 
-
-
 def asciidocConfig = {
 
     dependsOn jrubyPrepare
