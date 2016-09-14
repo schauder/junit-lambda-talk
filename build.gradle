@@ -150,3 +150,13 @@ task asciidocAll {
 
 build.dependsOn asciidocAll
 
+// publishing slides to gh-pages
+
+apply plugin: 'org.ajoberstar.github-pages'
+
+githubPages {
+    repoUri = 'https://github.com/schauder/junit-lambda-talk.git'
+    pages {
+        from 'build/asciidoc/revealjs/'
+    }
+}
