@@ -1,0 +1,428 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8" /><title>JUnit 5</title><meta content="yes" name="apple-mobile-web-app-capable" /><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style" /><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui" name="viewport" /><link href="reveal.js/css/reveal.css" rel="stylesheet" /><link rel="stylesheet" href="theme/jswhite.css" id="theme" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css" /><link href="lib/css/zenburn.css" rel="stylesheet" /><script>document.write( '<link rel="stylesheet" href="reveal.js/css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );</script></head><body><div class="reveal"><div class="slides"><section class="title"><h1>JUnit 5</h1><div class="paragraph"><p>The Next Generation</p></div>
+<div class="sidebarblock"><div class="content"><div class="paragraph"><p>Jens Schauder</p></div>
+<div class="paragraph"><p><a href="http://blog.schauderhaft.de" class="bare">http://blog.schauderhaft.de</a></p></div>
+<div class="paragraph"><p><a href="https://twitter.com/jensschauder">@jensschauder</a></p></div>
+<div class="paragraph"><p><a href="http://www.t-systems-onsite.de/">T-Systems on site services GmbH</a></p></div></div></div><p><small></small></p></section>
+<section id="lide-who-me" data-background-image="./images/who-me.jpg" data-background-size="initial"><h2>Who? &#8230;&#8203; Me?</h2>
+<div class="paragraph"><p>Entwickler, Freunde dürfen mich Architekt nennen</p></div>
+<div class="paragraph"><p>JUnit Nutzer seit 2001</p></div>
+<div class="paragraph"><p>JUnit 5 Supporter</p></div>
+<div class="sidebarblock"><div class="content"><div class="paragraph"><p>Entwickler von <a href="http://schauder.github.io/degraph/">Degraph</a></p></div></div></div></section>
+<section><section id="lide-das-haben-wir-früher-auch-nicht-gebraucht" data-background-image="./images/new.jpg" data-background-size="initial"><h2>Das haben wir früher auch nicht gebraucht!</h2></section><section id="lide-schwer-wartbar"><h2>Schwer Wartbar</h2><div class="paragraph"><p>Internes Feld umbenennen?</p></div>
+<div class="paragraph"><p>NOPE!</p></div></section><section id="lide-die-verdammten-runner"><h2>Die verdammten Runner</h2><div class="paragraph"><p>Spring Runner? Cool!</p></div>
+<div class="paragraph"><p>Parameterized Runner? Cool!</p></div>
+<div class="paragraph"><p>Parametrisierte Spring Tests? NOPE!</p></div></section><section id="lide-neu-syntaktische-möglichkeiten"><h2>Neu syntaktische Möglichkeiten</h2><div class="paragraph"><p>Lambdas!</p></div></section><section id="lide-historie"><h2>Historie</h2><div class="paragraph"><p>2012: erster Vorschlag auf Mailing Liste</p></div>
+<div class="paragraph"><p>2014: Diskussion bei XP-Days Hamburg</p></div>
+<div class="paragraph"><p>Mitte 2015: Indigo Kampagne</p></div>
+<div class="paragraph"><p>Ende 2015: Prototyp</p></div>
+<div class="paragraph"><p>Feb 2016: JUnit 5.0 Alpha</p></div>
+<div class="paragraph"><p>Juli 2016: JUnit Jupiter M1 &amp; M2</p></div></section></section>
+<section><section id="lide-internals" data-background-image="./images/internals.jpg" data-background-size="initial"><h2>Internals</h2></section><section id="lide-module"><h2>Module</h2><div class="imageblock" style=""><img src="./images/diag-6c95a89aee5bd62266e9b318290502d4.png" alt="diag 6c95a89aee5bd62266e9b318290502d4" /></div></section><section id="lide-keine-package-zyklen"><h2>Keine Package Zyklen</h2><div class="paragraph"><p>Dank Degraph</p></div>
+<div class="sidebarblock"><div class="content"><div class="paragraph"><p><a href="https://github.com/junit-team/junit5/pull/71">shameless plug</a></p></div></div></div></section><section id="lide-ablauf"><h2>Ablauf</h2><div class="paragraph"><p>Launcher starten</p></div>
+<div class="paragraph"><p>Launcher findet Engines</p></div>
+<div class="paragraph"><p>Engines finden Tests</p></div>
+<div class="paragraph"><p>Engines führen Tests aus</p></div></section><section id="lide-tests-starten"><h2>Tests starten</h2><div class="paragraph"><p>Gradle Plugin</p></div>
+<div class="paragraph"><p>Maven Plugin</p></div>
+<div class="paragraph"><p>Console Runner</p></div>
+<div class="paragraph"><p>IntelliJ Plugin (von JetBrains)</p></div>
+<div class="sidebarblock"><div class="content"><div class="paragraph"><p><a href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=488566">Kein Eclipse Support</a></p></div></div></div></section></section>
+<section><section id="lide-einfache-tests" data-background-image="./images/pull.jpg" data-background-size="initial"><h2>Einfache Tests!</h2></section><section id="lide-junit4-test-laufen-auch-mit-junit5"><h2>JUnit4 Test laufen auch mit JUnit5</h2><div class="imageblock zoom1" style=""><img src="./images/diag-f80981346cd31b98cf65f3ee08e3202a.png" alt="diag f80981346cd31b98cf65f3ee08e3202a" /></div></section><section id="lide-junit5-läuft-mit-junit4"><h2>JUnit5 läuft mit JUnit4</h2><div class="imageblock zoom1" style=""><img src="./images/diag-f7122222af7970f276db16c93f97cc74.png" alt="diag f7122222af7970f276db16c93f97cc74" /></div>
+<div class="listingblock"><div class="title">$02JUnit5WithRunnerTest.java</div><div class="content"><pre class="highlight"><code class="java language-java">import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.platform.runner.JUnitPlatform;
+import org.junit.runner.RunWith;
+
+@RunWith(JUnitPlatform.class)
+public class $02JUnit5WithRunnerTest {
+    @Test
+    public void someTest() {
+        Assertions.assertEquals(9, 3*3, "Msg last");
+    }
+}</code></pre></div></div>
+<div class="sidebarblock"><div class="content"><div class="paragraph"><p>Workaround für Eclipse</p></div></div></div></section><section id="lide-zeichen-sparen"><h2>Zeichen sparen</h2><div class="listingblock"><div class="title">$04ProperJUnit5Test.java</div><div class="content"><pre class="highlight"><code class="java language-java">import org.junit.jupiter.api.*;
+
+// class needs only package scope -&gt; reduced noise
+class $04ProperJUnit5Test {
+
+    // new annotation
+    @Test
+    void someTest() { // again only package scope -&gt; reduced noise
+        // Assertions replaces Assert for simple stuff
+        Assertions.assertEquals(5, quersumme(23));
+
+        // you probably want to use AssertJ, Hamcrest or similar anyway
+    }</code></pre></div></div></section><section id="lide-tests-disablen"><h2>Tests  disablen</h2><div class="listingblock"><div class="title">$04ProperJUnit5Test.java</div><div class="content"><pre class="highlight"><code class="java language-java">    @Test
+    @Disabled
+    // replaces @Ignored
+    void ignored() {
+    }</code></pre></div></div></section><section id="lide-assume"><h2>Assume</h2><div class="listingblock"><div class="title">$04ProperJUnit5Test.java</div><div class="content"><pre class="highlight"><code class="java language-java">    @Test
+    void abortTests() {
+        // abort the test -&gt; not failed, but execution stops anyway.
+        Assumptions.assumeTrue(false);
+    }</code></pre></div></div></section><section id="lide-coole-namen"><h2>Coole Namen</h2><div class="listingblock"><div class="title">$04ProperJUnit5Test.java</div><div class="content"><pre class="highlight"><code class="java language-java">    @Test
+    @DisplayName("Realy Awesome Name \uD83D\uDC4C")
+    //  should be an ok symbol -------^
+    void stupidName() {
+    }</code></pre></div></div></section><section id="lide-exceptions"><h2>Exceptions</h2><div class="listingblock"><div class="title">$04ProperJUnit5Test.java</div><div class="content"><pre class="highlight"><code class="java language-java">    @Test // the new @Test annotation doesn't have an 'expected'
+    void testExceptions() {
+
+        final String argument = "forty-two";
+        final IllegalArgumentException exception =
+                Assertions.expectThrows(IllegalArgumentException.class, () -&gt; {
+                    parseRomanNumeral(argument);
+                });
+        Assertions.assertTrue(exception.getMessage().contains(argument));
+    }</code></pre></div></div></section><section id="lide-nested-source"><h2>Nested (Source)</h2><div class="listingblock"><div class="title">$05NestedTests.java</div><div class="content"><pre class="highlight"><code class="java language-java">import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+
+class $05NestedTests {
+
+    @Nested
+    class NestedClass {
+        @Test
+        void inNested() {}
+    }
+
+    @Test
+    void inParent() {}
+
+    // Nested does not work here
+    // Note that the test is in a static inner class yet not "part" of the containing test
+    static class NestedStaticClass {
+        @Test
+        void inStaticNested() {}
+    }
+}</code></pre></div></div></section><section id="lide-nested-result"><h2>Nested (Result)</h2><div class="imageblock zoom4" style=""><img src="./images/nested-intellij.png" alt="nested intellij" /></div></section><section id="lide-tagging"><h2>Tagging</h2><div class="listingblock"><div class="title">$06TaggedTest.java</div><div class="content"><pre class="highlight"><code class="java language-java">import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Tags;
+import org.junit.jupiter.api.Test;
+
+@Tag("super")
+@Tags({@Tag("awesome"), @Tag("cool")})
+class $06TaggedTest {
+
+    @Test
+    void impressiveTest() {
+    }
+
+    @Test
+    @Tag("nice")
+    void evenBetterTest() {
+    }
+
+    @FastTest
+    void metaAnnotatedTest() {
+    }
+}</code></pre></div></div></section><section id="lide-tagging-metaannotationen"><h2>Tagging Metaannotationen</h2><div class="listingblock"><div class="title">FastTest.java</div><div class="content"><pre class="highlight"><code class="java language-java">import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
+
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+@Target({ ElementType.TYPE, ElementType.METHOD })
+@Retention(RetentionPolicy.RUNTIME)
+@Tag("fast")
+@Test
+public @interface FastTest {}</code></pre></div></div></section><section id="lide-filtern-gradle-plugin"><h2>Filtern (Gradle Plugin)</h2><div class="listingblock"><div class="content"><pre class="highlight"><code class="groovy language-groovy">junitPlatform {
+    tags {
+        include 'fast', 'smoke'
+        // exclude 'slow', 'ci'
+    }
+    includeClassNamePattern '.*Tests'
+}</code></pre></div></div></section><section id="lide-before-after-code"><h2>Before + After (Code)</h2><div class="listingblock"><div class="title">$07BeforeAfterTest.java</div><div class="content"><pre class="highlight"><code class="java language-java">    @BeforeAll
+    static void beforeAll(){ System.out.println("before all"); }
+
+    @BeforeEach
+    void before(){ System.out.println("before"); }
+
+    @Test
+    void testOne() { System.out.println("one"); }
+
+    @Test
+    void testTwo() { System.out.println("two"); }
+
+    @AfterAll
+    static void afterAll(){ System.out.println("after all"); }
+
+    @AfterEach
+    void after(){ System.out.println("after"); }</code></pre></div></div></section><section id="lide-before-after-result"><h2>Before + After (Result)</h2><div class="listingblock"><div class="content"><pre class="highlight"><code>before all
+before
+one
+after
+before
+two
+after
+after all</code></pre></div></div></section></section>
+<section><section id="lide-dynamische-tests" data-background-image="./images/clone.jpg" data-background-size="initial"><h2>Dynamische Tests</h2><div class="admonitionblock warning"><table><tr><td class="icon"><i class="fa fa-warning" title="Warning"></i></td><td class="content"><div class="title">Caffein required</div>The following uses Java 8 features. You might want to apply caffein now.</td></tr></table></div></section><section id="lide-mit-collections"><h2>Mit Collections</h2><div class="listingblock"><div class="title">$10DynamicWithCollectionTest.java</div><div class="content"><pre class="highlight"><code class="java language-java">class $10DynamicWithCollectionTest {
+    private List&lt;Integer&gt; ints = asList(
+            Integer.MAX_VALUE, Integer.MIN_VALUE, -1, 0, 1, 2, 10
+    );
+
+    @TestFactory
+    List&lt;DynamicTest&gt; additionIsCommutative() {
+        List&lt;DynamicTest&gt; tests = new ArrayList&lt;&gt;();
+        for (Integer i : ints) {
+            for (Integer j : ints) {
+                tests.add(dynamicTest(
+                        i + " + " + j,
+                        () -&gt; {
+                            assertEquals(i + j, j + i);
+                        }));
+            }
+        }
+        return tests;
+    }
+}</code></pre></div></div></section><section id="lide-mit-streams"><h2>Mit Streams</h2><div class="listingblock"><div class="title">$11DynamicWithStreamsTest.java</div><div class="content"><pre class="highlight"><code class="java language-java">class $11DynamicWithStreamsTest {
+    private List&lt;Integer&gt; ints = asList(
+            Integer.MAX_VALUE, Integer.MIN_VALUE, -1, 0, 1, 2, 10
+    );
+
+    @TestFactory
+    Stream&lt;DynamicTest&gt; additionIsCommutative() {
+        return ints.stream().flatMap(
+                i -&gt; ints.stream().map(
+                        j -&gt; dynamicTest(
+                                i + " + " + j,
+                                () -&gt; assertEquals(i + j, j + i)
+                        )
+                )
+        );
+    }
+}</code></pre></div></div></section><section id="lide-mit-pixie-dust"><h2>Mit Pixie Dust</h2><div class="listingblock"><div class="title">$12DynamicWithPixyDustTest.java</div><div class="content"><pre class="highlight"><code class="java language-java">class $12DynamicWithPixyDustTest extends LambdaBased {{
+        List&lt;Integer&gt; ints = asList(Integer.MAX_VALUE, Integer.MIN_VALUE, -1, 0, 1, 2, 10);
+
+        for (Integer i : ints) {
+            for (Integer j : ints) {
+                test(
+                        format("adding integers is commutative (%d, %d)", i, j),
+                        () -&gt; {
+                            assertEquals(i + j, j + i);
+                        });
+            }
+        }
+    }}</code></pre></div></div></section><section id="lide-der-pixie-dust"><h2>Der Pixie Dust</h2><div class="listingblock"><div class="title">LambdaBased.java</div><div class="content"><pre class="highlight"><code class="java language-java">public abstract class LambdaBased {
+    private List&lt;DynamicTest&gt; allTests = new ArrayList&lt;&gt;();
+
+    @TestFactory
+    List&lt;DynamicTest&gt; allTests(){
+        return allTests;
+    }
+
+    /** registers a test
+     * @param name name of the test
+     * @param executable the actual test
+     * */
+    protected void test(String name, Executable executable){
+        allTests.add(DynamicTest.dynamicTest(name, executable));
+    }
+}</code></pre></div></div></section><section id="lide-warnung"><h2>Warnung</h2><div class="admonitionblock warning"><table><tr><td class="icon"><i class="fa fa-warning" title="Warning"></i></td><td class="content"><div class="title">Dynamic Test Lifecycle</div>The execution lifecycle of a dynamic test is quite different than it is for a
+standard <code>@Test</code> case. Specifically, there are not any lifecycle callbacks for dynamic
+tests.</td></tr></table></div></section></section>
+<section><section id="lide-extending-tests" data-background-image="./images/stupendousman.jpg" data-background-size="initial"><h2>Extending Tests</h2></section><section id="lide-tests-mit-parameter"><h2>Tests mit Parameter</h2><div class="listingblock"><div class="title">$20MethodParameterResolverTest.java</div><div class="content"><pre class="highlight"><code class="java language-java">import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInfo;
+import org.junit.jupiter.api.extension.ExtendWith;
+
+@ExtendWith({RandomParameterResolver.class})
+class $20MethodParameterResolverTest {
+    @Test
+    void testMethodParameterResolver(
+            String arg,
+            // provided by the TestInfoResolver,
+            // which is always present
+            TestInfo testInfo
+    ) {
+        assertThat(testInfo.getDisplayName(), containsString("Resolver"));
+
+        assertThat(arg, startsWith("Jens"));
+    }
+}</code></pre></div></div></section><section id="lide-parameter-resolver"><h2>Parameter Resolver</h2><div class="listingblock"><div class="title">RandomParameterResolver.java</div><div class="content"><pre class="highlight"><code class="java language-java">import org.junit.jupiter.api.extension.*;
+
+import java.util.UUID;
+
+public class RandomParameterResolver implements ParameterResolver {
+
+    @Override
+    public boolean supports(
+            ParameterContext parameterContext,
+            ExtensionContext extensionContext
+    ) throws ParameterResolutionException {
+        return parameterContext.getParameter().getType() == String.class;
+    }
+
+    @Override
+    public Object resolve(
+            ParameterContext parameterContext,
+            ExtensionContext extensionContext
+    ) throws ParameterResolutionException {
+        return "Jens" + UUID.randomUUID();
+    }
+}</code></pre></div></div></section><section id="lide-mehrere-extension-kombinieren-der-test"><h2>Mehrere Extension kombinieren, der Test</h2><div class="listingblock"><div class="title">$21BeforeAfterExtensionTest.java</div><div class="content"><pre class="highlight"><code class="java language-java">@ExtendWith({WithDatasource.class})
+public class $21BeforeAfterExtensionTest {
+
+    @Test
+    public void testSomething(MyDatasource ds){
+        System.out.println("in test one with DS" + ds);
+    }
+
+    @Test
+    public void testSomethingElse(MyDatasource ds){
+        System.out.println("in test two with DS" + ds);
+    }
+
+}</code></pre></div></div></section><section id="lide-extensions-kombinieren-extension"><h2>Extensions kombinieren (Extension)</h2><div class="listingblock"><div class="title">WithDatasource.java</div><div class="content"><pre class="highlight"><code class="java language-java">import org.junit.jupiter.api.extension.*;
+
+public class WithDatasource implements
+        BeforeEachCallback, AfterEachCallback, ParameterResolver {
+
+    private MyDatasource ds;
+
+    @Override
+    public void beforeEach(TestExtensionContext testExtensionContext) {
+        System.out.println("before");
+        // more setup code goes here
+        ds = new MyDatasource();
+    }
+
+    @Override
+    public void afterEach(TestExtensionContext testExtensionContext) {
+        System.out.println("after");
+        ds = null;
+    }
+
+    @Override
+    public boolean supports(
+            ParameterContext parameterContext,
+            ExtensionContext extensionContext
+    ) throws ParameterResolutionException {
+        return parameterContext.getParameter().getType()
+                .isAssignableFrom(MyDatasource.class);
+    }
+
+    @Override
+    public Object resolve(
+            ParameterContext parameterContext,
+            ExtensionContext extensionContext
+    ) throws ParameterResolutionException {
+        return ds;
+    }
+}</code></pre></div></div></section><section id="lide-extensions-kombinieren-datasource"><h2>Extensions kombinieren (Datasource)</h2><div class="listingblock"><div class="title">MyDatasource.java</div><div class="content"><pre class="highlight"><code class="java language-java">public class MyDatasource {
+    private static int counter = 0;
+
+    {counter++;}
+
+    @Override
+    public String toString() {
+        return "MyDatasource #" + counter;
+    }
+}</code></pre></div></div></section><section id="lide-extensions-kombinieren-ergebnis"><h2>Extensions kombinieren (Ergebnis)</h2><div class="listingblock"><div class="content"><pre class="highlight"><code>before
+in test one with DSMyDatasource #1
+after
+before
+in test two with DSMyDatasource #2
+after</code></pre></div></div></section><section id="lide-extension-callbacks"><h2>Extension Callbacks</h2><div class="listingblock"><div class="content"><pre class="highlight"><code>AfterAllCallback
+AfterEachCallback
+AfterTestExecutionCallback
+BeforeAllCallback
+BeforeEachCallback
+BeforeTestExecutionCallback
+ContainerExecutionCondition
+ParameterResolver
+TestExecutionCondition
+TestExecutionExceptionHandler
+TestInstancePostProcessor</code></pre></div></div></section><section id="lide-limitierungen"><h2>Limitierungen</h2><div class="ulist"><ul><li><p>Tests N-Mal ausführen</p></li><li><p>Tests in anderem Thread ausführen (z.B. Swing EDT)</p></li></ul></div>
+<div class="sidebarblock"><div class="content"><div class="paragraph"><p><a href="https://github.com/junit-team/junit5/issues/157" class="bare">https://github.com/junit-team/junit5/issues/157</a></p></div></div></div></section></section>
+<section><section id="lide-was-vom-vortrag-übrig-blieb" data-background-image="./images/spring.jpg" data-background-size="initial"><h2>Was vom Vortrag übrig blieb</h2></section><section id="lide-api-annotations"><h2>API Annotations</h2><div class="listingblock"><div class="content"><pre class="highlight"><code class="java language-java">@API(Experimental)</code></pre></div></div>
+<div class="paragraph"><p>Mit den Ausprägungen</p></div>
+<div class="listingblock"><div class="content"><pre class="highlight"><code>Internal,
+Deprecated
+Experimental
+Maintained
+Stable</code></pre></div></div></section><section id="lide-spring-extension"><h2>Spring Extension</h2><div class="paragraph"><p>Ist in Arbeit</p></div>
+<div class="sidebarblock"><div class="content"><div class="paragraph"><p><a href="https://github.com/sbrannen/spring-test-junit5" class="bare">https://github.com/sbrannen/spring-test-junit5</a></p></div></div></div></section></section>
+<section><section id="lide-zusammenfassung" data-background-image="./images/wrap-up.jpg" data-background-size="initial"><h2>Zusammenfassung</h2><div class="ulist"><ul><li><p>JUnit 5 wird wesentlich aufgeräumter</p></li><li><p>Mächtiger Extension Mechanismus</p></li><li><p>Test mit Closures möglich aber nicht 100% integriert</p></li><li><p>Schaut es euch an und gebt Feedback</p></li></ul></div></section><section id="lide-oder-soll-marc-recht-behalten"><h2>Oder soll Marc Recht behalten?</h2><div class="quoteblock"><blockquote>Ich fürchte, die meisten werden auf die finale Version warten und dann meckern…</blockquote><div class="attribution"><cite>Keeper of the Green Bar</cite><br />&#8212; Marc Philipp</div></div></section></section>
+<section id="lide-fragen" data-background-image="./images/questions.jpg" data-background-size="initial"><h2>Fragen?</h2>
+<div class="paragraph"><p>Kommt nach Vorne.</p></div>
+<div class="paragraph"><p>Ich antworte gerne.</p></div>
+<div class="paragraph"><p>Allen anderen einen schönen Tag.</p></div>
+<div class="sidebarblock"><div class="content"><div class="paragraph"><p>Jens Schauder</p></div>
+<div class="paragraph"><p><a href="http://blog.schauderhaft.de" class="bare">http://blog.schauderhaft.de</a></p></div>
+<div class="paragraph"><p><a href="https://twitter.com/jensschauder">@jensschauder</a></p></div>
+<div class="paragraph"><p><a href="http://www.t-systems-onsite.de/">T-Systems on site services GmbH</a></p></div></div></div></section></div></div><script src="reveal.js/lib/js/head.min.js"></script><script src="reveal.js/js/reveal.js"></script><script>// See https://github.com/hakimel/reveal.js#configuration for a full list of configuration options
+Reveal.initialize({
+  // Display controls in the bottom right corner
+  controls: true,
+  // Display a presentation progress bar
+  progress: true,
+  // Display the page number of the current slide
+  slideNumber: true,
+  // Push each slide change to the browser history
+  history: true,
+  // Enable keyboard shortcuts for navigation
+  keyboard: true,
+  // Enable the slide overview mode
+  overview: true,
+  // Vertical centering of slides
+  center: false,
+  // Enables touch navigation on devices with touch input
+  touch: true,
+  // Loop the presentation
+  loop: false,
+  // Change the presentation direction to be RTL
+  rtl: false,
+  // Turns fragments on and off globally
+  fragments: true,
+  // Flags if the presentation is running in an embedded mode,
+  // i.e. contained within a limited portion of the screen
+  embedded: false,
+  // Number of milliseconds between automatically proceeding to the
+  // next slide, disabled when set to 0, this value can be overwritten
+  // by using a data-autoslide attribute on your slides
+  autoSlide: 0,
+  // Stop auto-sliding after user input
+  autoSlideStoppable: true,
+  // Enable slide navigation via mouse wheel
+  mouseWheel: false,
+  // Hides the address bar on mobile devices
+  hideAddressBar: true,
+  // Opens links in an iframe preview overlay
+  previewLinks: false,
+  // Theme (e.g., beige, black, league, night, serif, simple, sky, solarized, white)
+  // NOTE setting the theme in the config no longer works in reveal.js 3.x
+  //theme: Reveal.getQueryHash().theme || 'black',
+  // Transition style (e.g., none, fade, slide, convex, concave, zoom)
+  transition: Reveal.getQueryHash().transition || 'linear',
+  // Transition speed (e.g., default, fast, slow)
+  transitionSpeed: 'default',
+  // Transition style for full page slide backgrounds (e.g., none, fade, slide, convex, concave, zoom)
+  backgroundTransition: 'fade',
+  // Number of slides away from the current that are visible
+  viewDistance: 3,
+  // Parallax background image (e.g., "'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg'")
+  parallaxBackgroundImage: '',
+  // Parallax background size in CSS syntax (e.g., "2100px 900px")
+  parallaxBackgroundSize: '',
+
+  // The "normal" size of the presentation, aspect ratio will be preserved
+  // when the presentation is scaled to fit different resolutions. Can be
+  // specified using percentage units.
+  width: 1280,
+  height: 800,
+
+  // Factor of the display size that should remain empty around the content
+  margin: 0.1,
+
+  // Bounds for smallest/largest possible scale to apply to content
+  minScale: 0.2,
+  maxScale: 1.5,
+
+  // Optional libraries used to extend on reveal.js
+  dependencies: [
+      { src: 'reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+      { src: 'reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: 'reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: 'reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+      { src: 'reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+      { src: 'reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+  ]
+});</script></body></html>
