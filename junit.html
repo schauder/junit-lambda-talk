@@ -270,7 +270,7 @@ public class $21BeforeAfterExtensionTest {
         System.out.println("in test two with DS" + ds);
     }
 
-}</code></pre></div></div></section><section id="lide-extensions-kombinieren-extension"><h2>Extensions kombinieren (Extension)</h2><div class="listingblock"><div class="title">WithDatasource.java</div><div class="content"><pre class="highlight"><code class="java language-java">import org.junit.jupiter.api.extension.*;
+}</code></pre></div></div></section><section id="lide-extensions-kombinieren-before-after"><h2>Extensions kombinieren (Before / After)</h2><div class="listingblock"><div class="title">WithDatasource.java</div><div class="content"><pre class="highlight"><code class="java language-java">import org.junit.jupiter.api.extension.*;
 
 public class WithDatasource implements
         BeforeEachCallback, AfterEachCallback, ParameterResolver {
@@ -288,9 +288,7 @@ public class WithDatasource implements
     public void afterEach(TestExtensionContext testExtensionContext) {
         System.out.println("after");
         ds = null;
-    }
-
-    @Override
+    }</code></pre></div></div></section><section id="lide-extensions-kombinieren-parameter"><h2>Extensions kombinieren (Parameter)</h2><div class="listingblock"><div class="title">WithDatasource.java</div><div class="content"><pre class="highlight"><code class="java language-java">    @Override
     public boolean supports(
             ParameterContext parameterContext,
             ExtensionContext extensionContext
@@ -348,7 +346,8 @@ Stable</code></pre></div></div></section><section id="lide-spring-extension"><h2
 <div class="sidebarblock"><div class="content"><div class="paragraph"><p>Jens Schauder</p></div>
 <div class="paragraph"><p><a href="http://blog.schauderhaft.de" class="bare">http://blog.schauderhaft.de</a></p></div>
 <div class="paragraph"><p><a href="https://twitter.com/jensschauder">@jensschauder</a></p></div>
-<div class="paragraph"><p><a href="http://www.t-systems-onsite.de/">T-Systems on site services GmbH</a></p></div></div></div></section></div></div><script src="reveal.js/lib/js/head.min.js"></script><script src="reveal.js/js/reveal.js"></script><script>// See https://github.com/hakimel/reveal.js#configuration for a full list of configuration options
+<div class="paragraph"><p><a href="http://www.t-systems-onsite.de/">T-Systems on site services GmbH</a></p></div>
+<div class="paragraph"><p>Dieser Talk im Netz: <a href="http://schauder.github.io/junit-lambda-talk/junit.html" class="bare">http://schauder.github.io/junit-lambda-talk/junit.html</a></p></div></div></div></section></div></div><script src="reveal.js/lib/js/head.min.js"></script><script src="reveal.js/js/reveal.js"></script><script>// See https://github.com/hakimel/reveal.js#configuration for a full list of configuration options
 Reveal.initialize({
   // Display controls in the bottom right corner
   controls: true,
